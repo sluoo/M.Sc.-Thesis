@@ -1,0 +1,48 @@
+\section{LCA Model Selections: Reviews}
+Selecting the correct number of latent classes also known as class enumeration is one of the major challenges in latent variable modelling. Generally, the enumeration phase is a time-consuming procedure as it requires estimation of several competing models with varying number of classes, and difficult in the sense that the final model is selected based on the examination of several fit criteria, related theory of the analysis as well as the investigator’s personal judgment on the matter.  Several simulations studies have evaluated major statistical fit criteria in selecting different types of latent variable models under various experimental modelling conditions, including latent structure, number of latent classes, sample sizes, parameter structures and model complexity. Despite the numerous suggestions offered in these literature, a unanimous and more preferable fit criterion for deciding the number of latent classes remains an unresolved issue. In this section, results of past simulation studies on class enumeration focused on LCA models will be discussed. Generally these criteria can be grouped into three categories of model selection: information criteria (IC), entropy based criteria and likelihood based ratio tests.
+
+
+
+
+\subsection{Likelihood Ratio Based Test}
+The chi-square likelihood ratio test $G^{2}$ (Bollen, 1989) is often used to compare the relative fit of nested models with differing number of classes. Asymptotically, $G^2$ has a chi-square distribution with degrees of freedom equal to the difference in the number of parameters of the competing models under certain regulatory conditions and given by 
+
+$$ G^{2} = -2 \bigg[log\mathcal{L}(\hat{\theta}) - log \mathcal{L}(\hat{\theta}_{C}) \bigg]$$ where $\hat{\theta}_{U}$ and  $\hat{\theta}_{C}$ is the maximum likelihood estimators (MLE) for the unconstrained model U and the constrained model C.And under certain regularity conditions, this statistic has a chi-square distribution with degrees of freedom given by $$df_{G^2} = d_{U}-d_{C}$$ where $d_{U}$ and $d_{C}$ are the number of parameters estimated in each model. These models are nested since the constrained model is specified by placing parameter restrictions on the unconstrained model. Though LCA models are considered nested models, $G^2$ is not applicable here. For example, a 2-class model can be specified in terms of the parameters of the 3-class model by fixing the parameters of one of the latent classes to zero. By doing so, we are imposing constraints by fixing parameters at the boundaries of the parameter space (i.e. 0 or 1), violating one of the regularity conditions. The regularity condition ensures that the MLEs have an asymptotic normal distribution about their true values, otherwise $G^2$ may fail to be distributed as $X^2$ (Holt and Macready, 1989). Results from B.S. Everitt's (1988) simulation study illustrates that the distribution of $G^2$ statistic for testing LCA models with 2-classes vs 1-class was poorly approximated with chi-square distribution with one degrees of freedom and thus should not be formally used for assessing relative fit. In a more recent simulation study conducted by Nylund et. al (2007) analyzed $G^2$ test for 3-classes and 4-classes as well as various modelling structures such as considering both binary and continuous manifest variables and how complexity
+
+
+
+
+
+
+
+ However, extensive simulation studies of various finite mixture models in which LCA is an example, have shown numerous problems for class enumeraiton. 
+
+
+
+
+
+
+
+
+
+\subsection{Information Criteria}
+
+\subsection{Entropy Based Measures}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{LCA with Covariate Effects}}}

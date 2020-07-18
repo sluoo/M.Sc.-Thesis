@@ -1,0 +1,41 @@
+Latent variable models (LVM) are popular statistical models commonly used in the behavioral, health and social sciences. In such fields, concepts such as intelligence, social status and happiness are regarded as latent variables or hypothetical constructs (Harman, 1960), since they are not directly observable or measurable in the population (Everitt, 1984). Rather the model assumes that the underlying latent variables are measured by a set of observable variables. These observable variables are sometimes referred to as manifest or indicator variables depending on the field of study.  Table \ref{tab:my_label} is a unified framework presented by Muth\'en (2002) which indicates that LVMs can be classified according to the type of analysis and whether the latent variables are of strictly categorical, strictly continuous or of mixed type. Each entry is a distinct LVM model, with rows separating models into cross-sectional and longitudinal models and columns corresponding to the metric level of the latent variables.  
+
+\vspace{0.5em}
+
+\begin{table}[ht]
+    \caption{Classification of Latent Variable Models}
+    
+    \vspace{0.2em}
+    
+    \label{tab:my_label}
+    \centering
+    \begin{adjustbox}{max width=\textwidth} 
+    \begin{tabular}{m{5em} m{8em} m{13em} m{10em} c}
+    \toprule
+    \multicolumn{1}{c}{} &
+    \multicolumn{3}{c}{Latent Variables} \\ \cmidrule(l){2-4}
+     &  \center{Continuous} & \center{Categorical} & \center{Hybrids} & \\
+    \midrule
+    Cross Sectional Models & \center{Factor analysis, SEM} & \center{Regression mixture analysis, Latent Class Analysis} & \center{Factor mixture analysis} & \\
+    Longitudinal Models & \center{Growth analysis} & \center{Latent transition analysis, Latent class growth analysis} & \center{Growth mixture models} & \\
+    \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+\end{table}
+
+
+\vspace{0.5em} 
+For a full overview of these models in the above table, please see Muth\'en, 2002. In this paper, we will focus on categorical latent variables models of cross-sectional nature, specifically latent class analysis (LCA). Depending on the metrical level of manifest variables, other terms to describe LCA are \textit{latent profile analysis}, \textit{latent class clustering} or \textit{finite mixture modelling of categorical discrete data}. Thus in an effort to be consistent and avoid confusion, LCA will correspond to models where both the latent and manifest variables are categorical. The objective of LCA is to cluster or classify respondents into homogeneous subgroups or latent classes based on their observed responses to set manifest variables. Thus, latent classes capture the qualitatively distinct forms of individual differences in a heterogeneous population. Applications of LCA can be found in various substantive research areas such as health, behavioural and social sciences. Some interesting examples include identifying four symptom-related subgroups of eating disorders patients (Keel et. al., 2004), identifying clinically distinct subgroups of self-injurers (Klonsky \& Olino, 2008) and patterns of acculturation among Asian Americans (Jang & Park et. al., 2017). LCA was first brought to light in the social and behavioral sciences by Lazarfeld and Henry (1968). Though they provided a comprehensive and detailed mathematical treatment of this topic, it remained in the shadow for almost a decade since a reliable and stable way of obtaining the parameter estimates was not possible at the time. This changed when Goodman (1974) developed a straightforward and readily implementable method for obtaining maximum likelihood of latent class model parameters. It's been shown that Goodman's method closely resembles to the popular expectation-maximization (EM) algorithm (Dempster, Laird and Runin, 1977). Presently, the EM algorithm is readily available in LCA softwares such as Mplus (Muth\'en & Muth\'en), and the chosen software for this simulation study. 
+
+Several extensions of LCA has been accomplished in the last few decades. The latent class model became more flexible when it was introduced in a log-linear modelling framework (Formann, 1982, 1985; Haberman 1974, 1979; Hagenaars, 1998). This paved the way  for several new developments such as multilevel LCA (Vermunt,2003, 2004), LCA for longitudinal data (e.g. Muth\'en and Shedden, 1999; Nagin, 2005), Bayesian LCA (White and Murphy, 2014) and most prominently inclusion of covariates in LCA (Dayton and Macready, 1988; Huang and Roche, 2004) or Latent Class Regression (LCR). LCR is increasingly being used as an analytic tool since it not only allows the researcher to build a robust classification model but the inclusion of covariates can improve the prediction of class membership and aid the identification of the latent classes (Clogg, 1981; Dayton & Macready, 1988; Hagennars, 1993). 
+
+Despite the vast literature and growing applications related to LCA, determining the correct number of classes, also known as class enumeration, remains an unresolved issue. Even under the assumption that the population is indeed heterogeneous \textit{a priori}, hypotheses regarding the exact number or nature of the sub-populations are rarely known (Masyn, 2013). In general, class enumeration is typically done with combination of substantive theory and examining a set of statistical fit criterion. This is an extremely laborious task as it requires considering a set of models with varying number of classes then observing and comparing each individual fit index to determine the optimal number of classes. Additionally, there are conflicting views on when to include covariates during the class enumeration process. 
+
+Majority of simulations studies published in latent variable modelling literature has two contrasting views. Some suggests that it's best to first perform enumeration without covariates, and then proceed with LCR analysis to include covariates after the number of classes has been identified (Gibson and Masyn, 2016; Collins and Lanza, 2009, Masyn, 2013; Petras and Masyn, 2010). Others advocate to include the covariates during the class enumeration process as the additional information may increase model accuracy (Li & Hserm 2011; Lubke & Muth\'en, 2007; Muth\'en, 2002). These conflicting views have led to inconsistent practices among researchers applying LCA and in consequence, conclusions and modelling results are inconsistent as well. 
+
+In the context of class enumeration on LCA models, previous simulations have been conducted in the past (Everitt, 1988; Yang, 2006; Nylund, Asparouhov and Muth\'en, 2007, Morgan, 2015; Morovati, 2014), however, to the author's knowledge, only one simulation study has investigated class enumeration on LCA models with covariate effects (Masyn and Nylund, 2016). Therefore, a Monte Carlo simulation will be conducted examining how performance of fit indices are affected with presence of covariate effects and provide additional insight on when to incorporate covariates during class enumeration. The remainder of the paper will be organized in the follow manner: an overview of notable and relevant literature on class enumeration with LCA will be reviewed in Chapter 2. Chapter 3 provides the theoretical underpinnings of the statistical fit criteria considered in this study. The full simulation details will be described in Chapter 4. Finally, conclusions and results will be summarized in Chapter 5. 
+
+
+
+
+
