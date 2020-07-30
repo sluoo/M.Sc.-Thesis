@@ -1,6 +1,6 @@
 \section{The Latent Class Analysis Model}
 
-\subsection{The LCA Model}
+\subsection{The Classic LCA Model}
 In this section we will first introduce the classic LCA model and extend this model to include covariate effects using a multinomial logistic regression parametrization. Suppose there are M polytomous manifest variables or items, $u_{1},...,u_{M}$ observed on $N$ individuals in a data sample. Let $\bm{u_{i}} = (u_{1i},...,u_{Mi})^{\intercal}$ denote the full response pattern of individual $i$ where $u_{mi}$ is the response to item $m$. The classic LCA model represented in first diagram of Figure 1 (Lazarsfled \& Henry, 1968; McCutcheon, 1987) assumes that an underlying latent variable $C$ exist, consisting of $K$ latent classes, such that $C_{i}=k; k=1,2,...,K$ if individual $i$ belongs to class $k$. Path diagrams depicted in this thesis follows the convention used in Mplus version 8 User Guide (Muth\'en \& Muth\'en, 1998-2017). Thus, the distribution of a full response pattern can be expressed as 
 
 \begin{align}
@@ -11,46 +11,61 @@ The last term of equation 2.2 can be simplified by $conditional$ $independence$ 
 \begin{align}
 P(\bm{U_{i}}) = \sum_{k=1}^{K} \bigg[ \pi_{k} \cdot  \prod_{m=1}^{M}\prod_{r=1}^{R_{m}} P(u_{mi}=r|c_{i}=k)^{\mathbbm{1}(u_{mi} = r)} \bigg ]
 \end{align}
-where $\mathbbm{1}(u_{mi} = r)=1$ if $u_{mi}=r$ and $0$ otherwise. The classic LCA model is defined by two sets of parameters: the item response and class proportion probabilities. The item response probabilities are the $measurement$ $parameters$ and describes the relationship between the latent variable and items observed (i.e. it indicates how likely an individual will endorse an item within each latent class and so these results are the basis for the overall interpretation of the latent classes). The vector of item response probabilities sum to 1 conditional on latent class since an individual provides one and only one response to each item within each class. The class proportion probabilities are regarded as the $structural$ $parameters$ as it characterizes the overall distribution of the latent variable, which in the class LCA model specify the relative size of each latent class. Similarly, latent classes are mutually exclusive and exhaustive implying that individuals can only belong to one and only one latent class, hence, the class probabilities sum to 1. 
-
-There are three common characterizations that result in equivalent LCA models: the probability parameterization, the log-linear parameterization and the multinational logistic regression parameterization. The distribution of latent variable is modelled by a standard multinomial logistic regression. The equation is
+where $\mathbbm{1}(u_{mi} = r)=1$ if $u_{mi}=r$ and $0$ otherwise. The classic LCA model is defined by two sets of parameters: the item response and class proportion probabilities. The item response probabilities are the $measurement$ $parameters$ and describes the relationship between the latent variable and items observed (i.e. it indicates how likely an individual will endorse an item within each latent class and so these results are the basis for the overall interpretation of the latent classes). The vector of item response probabilities sum to 1 conditional on latent class since an individual provides one and only one response to each item within each class. The class proportion probabilities are regarded as the $structural$ $parameters$ as it characterizes the overall distribution of the latent variable, which in the class LCA model specify the relative size of each latent class. Similarly, latent classes are mutually exclusive and exhaustive implying that individuals can only belong to one and only one latent class, hence, the class probabilities sum to 1. Three common parametrization are commonly used that all result in same LCA models: the probability parameterization, the log-linear parameterization and the multinational logistic regression parameterization. For this thesis, the distribution of latent variable is parameterized with a standard multinomial logistic regression. The equation is
 \begin{align}
     \pi_{k} = P(C=k) = \frac{exp(\beta_{k})}{1 + \sum_{h=1}^{K-1}exp(\beta_{h})}
-\end{align} where the reference category is latent class K such that $\beta_{K}=0$. The choice of the reference category is arbitrary and will not affect the results, however, it can impact the ease of interpretation. For a more in depth treatment of multinomial logistic regression please refer to Hosmers and Lemeshow (Year). The item-response probabilities utilize an ordinal logistic regression. It may seem odd to parametrize the item-response probabilites in such a fashion, however, it corresponds to the nature of LCA applications. In several substantive fields, it can be seen that a clear ranking among the categories exist for responses. For example attitudinal questions on social and public opinion surveys follow a Likert-type scale that range from "strongly disagree" to "strongly agree" or from "least important" to "most important." Responses to other survey questions such as "never," "sometimes", "often", or "always" are also examples of ordered categories. Additionally, this is also the chosen parameterization implemented in Mplus Software (Muth\'en \& Muth\'en, 2018). The ordinal logistic regression is based on a latent response formulation and follows the discussion of Skrondal \& Hesketh, 2004. The item $u_{i}$ is an ordinal variable with $R$ response categories and can be viewed as a coarsening of a $continuous$ $latent$ $response$ $variable$ $u^{*}$. Assumed it is modelled by 
+\end{align} where the reference category is latent class K such that $\beta_{K}=0$. The choice of the reference category is arbitrary and will not affect the results, however, it can impact the ease of interpretation.
+
+The distribution of the item-response probabilities may also be parameterized under a logistic regression framework. However, for the purpose of this thesis, a different modelling framework is specified, known as the ordinal latent response formulation. It may seem odd to assume items are ordinal categorical variables, however, in several substantive fields, a natural ranking exists among the responses categories. For example attitudinal questions on social and public opinion surveys follow a Likert-type scale that range from "strongly disagree" to "strongly agree" or from "least important" to "most important." Responses to other survey questions such as "never," "sometimes", "often", or "always" are also examples of ordered categories (Liao, 1994). Additionally, this is also the chosen parameterization implemented in Mplus Software (Muth\'en \& Muth\'en, 2018). In the following, we will examine the ordinal latent response formulation in further detail. The following discussion follows from Skrondal \& Hesketh (2004) and Masyn (2017). The item $u_{mi}$, $m=1,2,...,M$ is an ordinal variable with $R$, possible response categories and can be viewed as a discretized form of a $continuous$ $latent$ $response$ $variable$ $u_{mi}^{*}$ or another way of putting it $u_{mi}^{*}$ an underlying continuum of $u_{mi}$. Assume that the relationship between $u_{mi}$ and $u_{mi}^{*}$ is modelled by the following, 
 \begin{align}
-    u_{i}^{*} = \bm{x_{i}}^\intercal \bm{\beta} + \epsilon_{i}
-\end{align} where $\bm{x_{i}}$ is a vector of explanatory variables and $\bm{\beta}$ contain the corresponding regression parameters. Now, if $u_{i}$ was a continuous variable then $u_{i} = u_{i}^{*}$ however, for the ordinal variable case, the relationship between $u_{i}$ and $u_{i}^{*}$ is as follows:
+    u_{mi}^{*} = \bm{x}_{i}^\intercal \bm{\beta} + \epsilon_{i}
+\end{align} where $\bm{x}$ is a vector specifying covariate effects, $\bm{\beta}$ are the corresponding regression parameters and $\epsilon_{i}$ is the random component that follows a standard logistic distribution. However, note that the classic LCA model assume no covariate effects $\bm{x}^{\intercal} = \bm{0}^{\intercal}$. LCA models with covariate effects will be discussed in the following subsections. Now, if $u_{mi}$ was a continuous variable then $u_{mi} = u_{mi}^{*}$. For the case of a binary ordinal variable, the relationship between $u_{mi}$ and $u_{mi}^{*}$ conditional on latent class k is given by
 \begin{align}
-    u_{i} =
+    u_{mi}=
     \begin{cases}
-    \hspace{1em}1 & \text{if } $u_{i}^{*} \le \tau_{1}$ \\
-    \hspace{1em}2 & \text{if } $\tau_{1} < u_{i}^{*} \le \tau_{2}$ \\
-    &\hspace{0.2em}\vdots \\
-    R-1 & \text{if } $\tau_{R-2} < u_{i}^{*} \le \tau_{R-1}$ \\
-    \hspace{1em}R & \text{if } $\tau_{R-1} < u_{i}^{*}$
+    \hspace{1em}0 & \text{if } $ -\infty < u_{mi}^{*} \leq \tau_{1k}$ \\
+    \hspace{1em}1 & \text{if } $\tau_{1k} < u_{mi}^{*} \leq \infty $
     \end{cases}
-\end{align} The set $({\tau_{1},\tau_{2},..,\tau_{R-1})$ are thresholds or cut-off points. These unknown parameters separate the adjacent response categories. For example, the severity of pain may be labelled as "none", "moderate" or "severe". Individuals are categorized based on where they fall on the assumed underlying continuous latent variable, pain severity. 
-
-%%Place tikz picture here 
-
-
-
-The interpretation of the regression parameters utilizes the concept of odds and odd ratios. Generally given two events, Event A and Event B, the odds is defined as the relative chances of any two events: 
-
+\end{align} such that $\tau_{1k}$ is the cutoff point or threshold value that separate the response categories. For all individuals in population with $u_{mi}^{*}$ values less than $\tau_{1k}$ will manifest the outcome variable $u_{mi}$=0 and those greater than $\tau_{1k}$ will manifest $u_{mi}=1$. Based on the relations above, the item-response probabilities for a binary item is defined as
 \begin{align}
-    odds = \frac{P(Event A)}{P(Event B)}
-\end{align} When interpreting the odds with a covariate, we can examine the odd ratio: 
-
+    P(u_{mi}=1 | c=k) &= P(\tau_{1k} \leq u_{mi}^{*}) \nonumber \\
+    &= P(\tau_{1k} \leq \bm{x_{i}}^{\intercal}\bm{\beta} + \bm{\epsilon}_{i}) \nonumber \\
+    &= P( \bm{\epsilon}_{i} \geq \tau_{1k}) \nonumber \\
+    &= 1- F_{\epsilon}(\tau_{1k}) \nonumber 
+\end{align} Since $\epsilon_{i}$ $\sim$ $Logistic(0,1)$ therefore we have that,
 \begin{align}
-    $odds$ $ratio$ = \frac{ \frac{P(Event A|X=x_{1})}{P(Event B|X=x_{1})}}{ \frac{P(Event A|X=x_{2})}{P(Event B|X=x_{2})}}
+P(u_{mi}=1|c=k) &= \frac{1}{1+exp(\tau_{1k})} 
+\end{align} where $\tau_{1k}$ is the negative log odds of endorsing item $u_{mi}$ given membership in latent class, i.e. 
+\begin{align}
+     \tau_{1k} = -log\bigg( \frac{P(u_{mi=1}|c=k)}{P(u_{mi=0}|c=k)}\bigg)
 \end{align}
+For an item with $R$ response categories and thereby $(R-1)$ thresholds. The latent response formulation model for $R$ responses is therefore,
+\begin{align}
+    u_{mi} =
+    \begin{cases}
+    \hspace{1em}0 & \text{if } $-\infty < u_{mi}^{*} \leq \tau_{1k}$ \\
+    \hspace{1em}1 & \text{if } $\tau_{1k} < u_{mi}^{*} \leq \tau_{2k}$ \\
+    &\hspace{0.2em}\vdots \\
+    R-1 & \text{if } $\tau_{(R-1)k} < u_{mi}^{*} \leq \infty$ 
+    \end{cases}
+\end{align} where $\tau_{(r-1)k}$ and $\tau_{rk}$ are the lower and upper thresholds respectively where each range corresponds to the $rth$ response category on the $u_{mi}$ scale. In this case, the item response probability is constructed based on cumulative probabilities as we are interested in obtaining the probability of attaining at least a given response probability, i.e. $P(u_{mi} \leq r) = P(u_{mi}^{*} \leq \tau_{r+1})$. Similarly to the binary case we have that,
+\begin{align}
+    P(u_{mi} \leq r | c=k) &= P(u_{mi}^{*} \leq \tau_{(r+1)k}) \nonumber \\
+    &= P(\bm{x}^{\intercal}_{i}\bm{\beta} + \bm{\epsilon}_{i} \leq \tau_{(r+1)k}) \nonumber \\
+    &= P(\bm{\epsilon}_{i} \leq \tau_{(r+1)k}) \nonumber \\
+    &= \frac{1}{1+exp(-\tau_{(r+1)k})}
+\end{align} Therefore, the individualized item-response probabilities for item $m$ in class $k$ with $R$ response categories are
+\begin{align}
+    P(u_{mi}=0|c=k) &= F(\tau_{m1}) \nonumber \\
+    P(u_{mi}=1|c=k) &= F(\tau_{m2}) - F(\tau_{m1}) \nonumber \\ 
+    &\vdots \nonumber \\
+    P(u_{mi}=R|c=k) &= 1 - F(\tau_{R-1}) 
+\end{align} where $F(\cdot)$ represent the standard logistic cumulative distribution 
+function.
 
-The reason behind this selection is due to nature of applications in LCA. In several substantive fields, it can be seen that a clear ranking among the categories exist for responses. For example attitudinal questions on social and public opinion surveys follow a Likert-type scale that range from "strongly disagree" to "strongly agree" or from "least important" to "most important." Responses to other survey questions such as "never," "sometimes," often" and "always" are also examples of ordered categories. Additionally, this is also the chosen parameterization implemented in Mplus Software (Muth\'en \& Muth\'en, 2018). 
+\subsection{Model Interpretation}
 
 
 
-In this simulation study, class enumeration is examined under various modelling conditions. Population parameters used for data generation were chosen to reflect work commonly seen in LCA research. For a meaningful and high quality LCA, we require “good” items that accurately measures the underlying latent variable and a strong association exist. A good item is one with both qualities: class homogeneity and class separation (Collins \& Lanza, 2010). If a class has high homogeneity with respect to a particular item, then there is a particular response group on that item item which epitomizes or uniquely distinguishes that class.In the case of binary items, strong associations with a class or high-class homogeneity is indicated by high or low-estimated probabilities – that is item response probabilities $\> 0.7$ or $\< 0.3$ (Masyn, 2013). For example, if an item response probability is 0.95, it implies that 95\% of individuals endorse that particular item and 5\% will not but only within that latent class. We would say that this item may be a typical characteristic of this class. Aside from class homogeneity, we also wish that classes are distinguishable between each other - this quality is called class separation. Similarly, the class proportions or relative sizes of each class may also provide additional information that may be beneficial to the interpretation phase of the analysis. For example, if the class proportion is higher for a specific class relative to others then that class represents majority of the population sample. Population parameters selected for this study will be discussed in Chapter 4.
 
-\subsection{Extending LCA models with Covariates}
 
-As aforementioned, the classic LCA model has been extended allowing researchers to analyze more complicated substantive applications. A common practice in LCA modelling is the inclusion of covariates. Latent class regression (LCR) model is the most popular specification, in which the latent variable, again measured by the observed items, is simultaneously regressed on the covariates with a multinomial logistic regression parametrization.  
