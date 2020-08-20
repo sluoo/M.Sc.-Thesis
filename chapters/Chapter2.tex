@@ -1,22 +1,29 @@
-\section{The Latent Class Analysis Model}
-
-\subsection{The Classic LCA Model}
-In this section we will first introduce the classic LCA model and extend this model to include covariate effects using a multinomial logistic regression parametrization. Suppose there are M polytomous manifest variables or items, $u_{1},...,u_{M}$ observed on $N$ individuals in a data sample. Let $\bm{u_{i}} = (u_{1i},...,u_{Mi})^{\intercal}$ denote the full response pattern of individual $i$ where $u_{mi}$ is the response to item $m$. The classic LCA model represented in first diagram of Figure 1 (Lazarsfled \& Henry, 1968; McCutcheon, 1987) assumes that an underlying latent variable $C$ exist, consisting of $K$ latent classes, such that $C_{i}=k; k=1,2,...,K$ if individual $i$ belongs to class $k$. Path diagrams depicted in this thesis follows the convention used in Mplus version 8 User Guide (Muth\'en \& Muth\'en, 1998-2017). Thus, the distribution of a full response pattern can be expressed as 
+\section{The Classic Latent Class Analysis Model}
+In this section we will first introduce the classic LCA model before introducing the latent class regression model. Suppose there are M polytomous manifest variables or items, $u_{1},...,u_{M}$ observed on $N$ individuals in a data sample. Let $\bm{u_{i}} = (u_{1i},...,u_{Mi})^{\intercal}$ denote the full response pattern of individual $i$ where $u_{mi}$ is the response to item $m$. The classic LCA model represented in first diagram of Figure 1 (Lazarsfled \& Henry, 1968; McCutcheon, 1987) assumes that an underlying latent variable $C$ exist, consisting of $K$ latent classes, such that $C_{i}=k; k=1,2,...,K$ if individual $i$ belongs to class $k$. Path diagrams depicted in this thesis follows the convention used in Mplus version 8 User Guide (Muth\'en \& Muth\'en, 1998-2017). Thus, the distribution of a full response pattern can be expressed as 
 
 \begin{align}
 P(\bm{U_{i}}) &= \sum_{k=1}^{K} \bigg[ P(C_{i}=k) \cdot P(u_{1i},u_{2i},..,u_{M}|C_{i}=k)\bigg] \\
 &=\sum_{k=1}^{K} \bigg[ \pi_{k} \cdot P(u_{1i},u_{2i},..,u_{M}|C_{i}=k)\bigg]
 \end{align}
-The last term of equation 2.2 can be simplified by $conditional$ $independence$ which is assumed on the M items conditional on latent class membership. This assumption implies that all the associations shared among the observed items is strictly caused by the latent variable or another way of putting it, conditional on the latent variable, responses to all of the manifest variables are assumed to be statistically independent. Conditional independence is depicted in the first diagram of Figure 1. As shown, the items are only connected by the latent variable as indicated by the one-way directional path which signifies that the K items are only related through the latent variable. Thus, we have the following 
+The last term of equation 2.2 can be simplified by $conditional$ $independence$ which is assumed on the M items conditional on latent class membership. This assumption implies that all the associations shared among the observed items is strictly caused by the latent variable or another way of putting it, conditional on the latent variable, responses to all of the manifest variables are assumed to be statistically independent. Conditional independence is depicted in the first diagram of Figure 1. As shown, the items are only connected by the latent variable as indicated by the one-way directional path which signifies that the K items are only related through the latent variable. Thus, the classic latent class model is defined as: 
 \begin{align}
-P(\bm{U_{i}}) = \sum_{k=1}^{K} \bigg[ \pi_{k} \cdot  \prod_{m=1}^{M}\prod_{r=1}^{R_{m}} P(u_{mi}=r|c_{i}=k)^{\mathbbm{1}(u_{mi} = r)} \bigg ]
+P(\bm{U_{i}}) = \sum_{k=1}^{K} \bigg[ \pi_{k} \cdot  \prod_{m=1}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg ]
 \end{align}
-where $\mathbbm{1}(u_{mi} = r)=1$ if $u_{mi}=r$ and $0$ otherwise. The classic LCA model is defined by two sets of parameters: the item response and class proportion probabilities. The item response probabilities are the $measurement$ $parameters$ and describes the relationship between the latent variable and items observed (i.e. it indicates how likely an individual will endorse an item within each latent class and so these results are the basis for the overall interpretation of the latent classes). The vector of item response probabilities sum to 1 conditional on latent class since an individual provides one and only one response to each item within each class. The class proportion probabilities are regarded as the $structural$ $parameters$ as it characterizes the overall distribution of the latent variable, which in the class LCA model specify the relative size of each latent class. Similarly, latent classes are mutually exclusive and exhaustive implying that individuals can only belong to one and only one latent class, hence, the class probabilities sum to 1. Three common parametrization are commonly used that all result in same LCA models: the probability parameterization, the log-linear parameterization and the multinational logistic regression parameterization. For this thesis, the distribution of latent variable is parameterized with a standard multinomial logistic regression. The equation is
+where $\mathbbm{1}(u_{mi} = r)=1$ if $u_{mi}=r$ and $0$ otherwise.
+
+%%%%%%
+%
+% Place figure of classic LCA model here
+%
+%%%%%%
+
+
+The classic LCA model is defined by two sets of parameters: the item response and class membership probabilities. The item response probabilities are the parameters of the $measurement model$ and describes the relationship between the latent variable and items observed (i.e. it indicates how likely an individual will endorse an item within each latent class and so these results are the basis for the overall interpretation of the latent classes). The vector of item response probabilities sum to 1 conditional on latent class since an individual provides one and only one response to each item within each class. The $structural model$ are class membership probabilities (i.e. class proportions or class size) and characterizes the overall distribution of the latent variable, which in the class LCA model specify the relative size of each latent class. Similarly, latent classes are mutually exclusive and exhaustive implying that individuals can only belong to one and only one latent class, hence, the class membership probabilities sum to 1. Three common parametrization are commonly used that all result in same LCA models: the probability parameterization, the log-linear parameterization and the multinational logistic regression parameterization. For this thesis, the distribution of latent variable is parameterized with a standard multinomial logistic regression. The equation is
 \begin{align}
-    \pi_{k} = P(C=k) = \frac{exp(\beta_{k})}{1 + \sum_{h=1}^{K-1}exp(\beta_{h})}
+    \pi_{k} = P(c_{i}=k) = \frac{exp(\beta_{0k})}{1 + \sum_{h=1}^{K-1}exp(\beta_{0h})}
 \end{align} where the reference category is latent class K such that $\beta_{K}=0$. The choice of the reference category is arbitrary and will not affect the results, however, it can impact the ease of interpretation.
 
-The distribution of the item-response probabilities may also be parameterized under a logistic regression framework. However, for the purpose of this thesis, a different modelling framework is specified, known as the ordinal latent response formulation. It may seem odd to assume items are ordinal categorical variables, however, in several substantive fields, a natural ranking exists among the responses categories. For example attitudinal questions on social and public opinion surveys follow a Likert-type scale that range from "strongly disagree" to "strongly agree" or from "least important" to "most important." Responses to other survey questions such as "never," "sometimes", "often", or "always" are also examples of ordered categories (Liao, 1994). Additionally, this is also the chosen parameterization implemented in Mplus Software (Muth\'en \& Muth\'en, 2018). In the following, we will examine the ordinal latent response formulation in further detail. The following discussion follows from Skrondal \& Hesketh (2004) and Masyn (2017). The item $u_{mi}$, $m=1,2,...,M$ is an ordinal variable with $R$, possible response categories and can be viewed as a discretized form of a $continuous$ $latent$ $response$ $variable$ $u_{mi}^{*}$ or another way of putting it $u_{mi}^{*}$ an underlying continuum of $u_{mi}$. Assume that the relationship between $u_{mi}$ and $u_{mi}^{*}$ is modelled by the following, 
+The distribution of the item-response probabilities may also be parameterized under a logistic regression framework. However, for the purpose of this thesis, a different modelling framework is specified, known as the ordinal latent response formulation. It may seem odd to assume items are ordinal categorical variables, however, in several substantive fields, a natural ranking exists among the responses categories. For example attitudinal questions on social and public opinion surveys follow a Likert-type scale that range from "strongly disagree" to "strongly agree" or from "least important" to "most important." Responses to other survey questions such as "never," "sometimes", "often", or "always" are also examples of ordered categories (Liao, 1994). This type of formulation is the most common in the structural equation modelling (SEM) additionally it is the chosen parametrization implemented in Mplus Software (Muth\'en \& Muth\'en, 2018). In the following, we will examine the ordinal latent response formulation in further detail. The following discussion follows from Skrondal \& Hesketh (2004) and Masyn (2017). The item $u_{mi}$, $m=1,2,...,M$ is an ordinal variable with $R$, possible response categories and can be viewed as a discretized form of a $continuous$ $latent$ $response$ $variable$ $u_{mi}^{*}$ or another way of putting it $u_{mi}^{*}$ an underlying continuum of $u_{mi}$. Assume that the relationship between $u_{mi}$ and $u_{mi}^{*}$ is modelled by the following, 
 \begin{align}
     u_{mi}^{*} = \bm{x}_{i}^\intercal \bm{\beta} + \epsilon_{i}
 \end{align} where $\bm{x}$ is a vector specifying covariate effects, $\bm{\beta}$ are the corresponding regression parameters and $\epsilon_{i}$ is the random component that follows a standard logistic distribution. However, note that the classic LCA model assume no covariate effects $\bm{x}^{\intercal} = \bm{0}^{\intercal}$. LCA models with covariate effects will be discussed in the following subsections. Now, if $u_{mi}$ was a continuous variable then $u_{mi} = u_{mi}^{*}$. For the case of a binary ordinal variable, the relationship between $u_{mi}$ and $u_{mi}^{*}$ conditional on latent class k is given by
@@ -28,16 +35,16 @@ The distribution of the item-response probabilities may also be parameterized un
     \end{cases}
 \end{align} such that $\tau_{1k}$ is the cutoff point or threshold value that separate the response categories. For all individuals in population with $u_{mi}^{*}$ values less than $\tau_{1k}$ will manifest the outcome variable $u_{mi}$=0 and those greater than $\tau_{1k}$ will manifest $u_{mi}=1$. Based on the relations above, the item-response probabilities for a binary item is defined as
 \begin{align}
-    P(u_{mi}=1 | c=k) &= P(\tau_{1k} \leq u_{mi}^{*}) \nonumber \\
+    P(u_{mi}=1 | c_{i}=k) &= P(\tau_{1k} \leq u_{mi}^{*}) \nonumber \\
     &= P(\tau_{1k} \leq \bm{x_{i}}^{\intercal}\bm{\beta} + \bm{\epsilon}_{i}) \nonumber \\
     &= P( \bm{\epsilon}_{i} \geq \tau_{1k}) \nonumber \\
     &= 1- F_{\epsilon}(\tau_{1k}) \nonumber 
 \end{align} Since $\epsilon_{i}$ $\sim$ $Logistic(0,1)$ therefore we have that,
 \begin{align}
-P(u_{mi}=1|c=k) &= \frac{1}{1+exp(\tau_{1k})} 
+P(u_{mi}=1|c_{i}=k) &= \frac{1}{1+exp(\tau_{1k})} 
 \end{align} where $\tau_{1k}$ is the negative log odds of endorsing item $u_{mi}$ given membership in latent class, i.e. 
 \begin{align}
-     \tau_{1k} = -log\bigg( \frac{P(u_{mi=1}|c=k)}{P(u_{mi=0}|c=k)}\bigg)
+     \tau_{1k} = -log\bigg( \frac{P(u_{mi=1}|c_{i}=k)}{P(u_{mi=0}|c_{i}=k)}\bigg)
 \end{align}
 For an item with $R$ response categories and thereby $(R-1)$ thresholds. The latent response formulation model for $R$ responses is therefore,
 \begin{align}
@@ -46,24 +53,64 @@ For an item with $R$ response categories and thereby $(R-1)$ thresholds. The lat
     \hspace{1em}0 & \text{if } $-\infty < u_{mi}^{*} \leq \tau_{1k}$ \\
     \hspace{1em}1 & \text{if } $\tau_{1k} < u_{mi}^{*} \leq \tau_{2k}$ \\
     &\hspace{0.2em}\vdots \\
-    R-1 & \text{if } $\tau_{(R-1)k} < u_{mi}^{*} \leq \infty$ 
+    R-1 & \text{if } $\tau_{R-1,k} < u_{mi}^{*} \leq \infty$ 
     \end{cases}
-\end{align} where $\tau_{(r-1)k}$ and $\tau_{rk}$ are the lower and upper thresholds respectively where each range corresponds to the $rth$ response category on the $u_{mi}$ scale. In this case, the item response probability is constructed based on cumulative probabilities as we are interested in obtaining the probability of attaining at least a given response probability, i.e. $P(u_{mi} \leq r) = P(u_{mi}^{*} \leq \tau_{r+1})$. Similarly to the binary case we have that,
+\end{align} where $\tau_{r-1,k}$ and $\tau_{rk}$ are the lower and upper thresholds respectively where each range corresponds to the $rth$ response category on the $u_{mi}$ scale. In this case, the item response probability is constructed based on cumulative probabilities as we are interested in obtaining the probability of attaining at least a given response probability, i.e. $P(u_{mi} \leq r) = P(u_{mi}^{*} \leq \tau_{r+1})$. Similarly to the binary case we have that,
 \begin{align}
-    P(u_{mi} \leq r | c=k) &= P(u_{mi}^{*} \leq \tau_{(r+1)k}) \nonumber \\
-    &= P(\bm{x}^{\intercal}_{i}\bm{\beta} + \bm{\epsilon}_{i} \leq \tau_{(r+1)k}) \nonumber \\
-    &= P(\bm{\epsilon}_{i} \leq \tau_{(r+1)k}) \nonumber \\
-    &= \frac{1}{1+exp(-\tau_{(r+1)k})}
-\end{align} Therefore, the individualized item-response probabilities for item $m$ in class $k$ with $R$ response categories are
+    P(u_{mi} \leq r | c_{i}=k) &= P(u_{mi}^{*} \leq \tau_{r+1,k}) \nonumber \\
+    &= P(\epsilon_{i} \leq \tau_{r+1,k}) \nonumber \\
+    &= F(\tau_{r+1,k}) \nonumber \\
+    &= \frac{1}{1 + exp(\tau_{r+1,k})}
+\end{align} or identically, 
 \begin{align}
-    P(u_{mi}=0|c=k) &= F(\tau_{m1}) \nonumber \\
-    P(u_{mi}=1|c=k) &= F(\tau_{m2}) - F(\tau_{m1}) \nonumber \\ 
+    log \bigg( \frac{P(u_{mi} \leq r)}{P(u_{mi} > r)} \bigg) = \tau_{r+1,k}
+\end{align}The individualized item-response probabilities for item $m$ in class $k$ with $R$ response categories is
+\begin{align}
+    P(u_{mi}=0|c_{i}=k) &= F(\tau_{m1}) \nonumber \\
+    P(u_{mi}=1|c_{i}=k) &= F(\tau_{m2}) - F(\tau_{m1}) \nonumber \\ 
     &\vdots \nonumber \\
-    P(u_{mi}=R|c=k) &= 1 - F(\tau_{R-1}) 
-\end{align} where $F(\cdot)$ represent the standard logistic cumulative distribution 
-function.
+    P(u_{mi}=R|c_{i}=k) &= 1 - F(\tau_{R-1}) 
+\end{align} where $F(\cdot)$ represent the standard logistic cumulative distribution function.
 
-\subsection{Model Interpretation}
+\section{Latent Class Regression Model}
+Thus far we have discussed LCA models where the relationships between the observed items can solely be explained by a latent variable. In practice, however, there may be applications where we would like to relate a set of covariates to the latent variable and the observed items. This may improve the prediction of class membership and facilitate in the identification and interpretation of latent classes (Park \& Yu, 2018). In the following we will extend the standard LCA model to incorporate covariates. 
+
+Covariates are often added through a multinomial logistic regression parametrization (Dayton \& Macready, 1988) and can influence the set of observed items indirectly through the latent variable, or directly to items and bypass the latent variable completely (Masyn, 2013). Figure 2.2 illustrates the most common modelling situations with covariates with a single latent variable $c$
+
+%%%%%%
+%
+% Place figure of various pathways here 
+%
+%%%%%%%
+Figure 2.2a is an example of an indirect pathway. In this case, the set of covariate $\bm{w}=(w_{1},w_{2}...w_{q})$ is only influencing the latent variable $c$ which indirectly effects the set of items $\bm{u_{i}}=(u_{1i},u_{2i},u_{3i})$. Alternating equation 2.3, the general LCR model with an indirect pathway can be written as 
+\begin{align}
+P(\bm{U_{i}}|\bm{w_{i}}) = \sum_{k=1}^{K} \bigg[ \pi_{k}(\bm{w_{i}}) \cdot  \prod_{m=1}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg ]
+\end{align}
+where $\mathbbm{1}(u_{mi} = r)=1$ if $u_{mi}=r$ and $0$ otherwise. The class membership probabilities is defined as 
+\begin{align}
+    \pi_{k}(\bm{w}_{i}) &=  \frac{exp(\beta_{0k} + \sum_{j=1}^{p}\beta_{jk}w_{ij})}
+    {1 + \sum_{h=1}^{K-1}exp(\beta_{0k} + \sum_{j=1}^{p} \beta_{jk}w_{ij})}
+\end{align} where $\beta_{0K}=\beta_{1K}=0$ for identification. Figure 2.2b illustrates an example where a single covariate directly effects one item. Traditionally, we assume measurement invariance on the set of items, which implies that the set of covariates is conditionally independent from the items given class membership.When violated, it may lead to bias parameter estimates of the model due to the unmodelled association between the covariates and items, implying covariates directly effect the items (Janssen et. al, 2019). Referring back to our example, the vector $\bm{x}^\intercal=(x_{1},...,x_{p})$ is a source of measurement noninvariance for $u_{1}$. This implies that conditional item response probabilities for $u_{1}$ for each individual in class $k$ will differ with respect to their $x$ value but their probabilities for the remainder items are all the same as $x$ does not have any direct influences on these items. That is, 
+\begin{align}
+P(\bm{U_{i}}|\bm{x}_{i}) = \sum_{k=1}^{K} \bigg[ \pi_{k} &\times \prod_{r_{1}=1}^{R_{1}}  P(u_{1i}=r_{1}|c_{i}=k,\bm{x}_{i})^{\mathbbm{1}(u_{1i} = r_{1})}  \nonumber \\
+ & \times \prod_{m=2}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg ]
+\end{align}
+When both an indirect and direct effect exist in the model as depicted in Figure 2.2c, we have that 
+\begin{align}
+P(\bm{U_{i}}|\bm{w}_{i},\bm{x}_{i}) = \sum_{k=1}^{K} \bigg[ \pi_{k}(\bm{w}_{i}) &\times \prod_{r_{1}=1}^{R_{1}}  P(u_{1i}=r_{1}|c_{i}=k,\bm{x}_{i})^{\mathbbm{1}(u_{1i} = r_{1})}  \nonumber \\
+ & \times \prod_{m=2}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg]
+\end{align} where
+\begin{align}
+    log\bigg( \frac{P(u_{1i} \leq r|c=k,\bm{x}_{i})}{P(u_{1i} > r|c=k,\bm{x}_{i})}  \bigg) = \tau_{r+1,k} -\sum_{j=1}^{p} \beta_{j}x_{ij} 
+\end{align}
+based on the ordinal latent response formulation as discussed previously.
+
+$\tau_{mk}$ is the negaitv elog odds of endosing $u_{m}$ give n memebeship in latent class k and observed value X=0. 
+$\beta_{m}$ is th elog odds ratio of endsoring item $u_{m}$ given membership in laent class k, for all k in 1,2,3...K. corresponding to a postive ne unit difference in X.
+
+Mention why we need direct effects and consquences of ignoring these effects 
+
+Estimation of model parameters?? 
 
 
 
