@@ -1,118 +1,299 @@
-\section{The Classic Latent Class Analysis Model}
-In this section we will first introduce the classic LCA model before introducing the latent class regression model. Suppose there are M polytomous manifest variables or items, $u_{1},...,u_{M}$ observed on $N$ individuals in a data sample. Let $\bm{u_{i}} = (u_{1i},...,u_{Mi})^{\intercal}$ denote the full response pattern of individual $i$ where $u_{mi}$ is the response to item $m$. The classic LCA model represented in first diagram of Figure 1 (Lazarsfled \& Henry, 1968; McCutcheon, 1987) assumes that an underlying latent variable $C$ exist, consisting of $K$ latent classes, such that $C_{i}=k; k=1,2,...,K$ if individual $i$ belongs to class $k$. Path diagrams depicted in this thesis follows the convention used in Mplus version 8 User Guide (Muth\'en \& Muth\'en, 1998-2017). Thus, the distribution of a full response pattern can be expressed as 
+We begin with background of of the classic LCA model and extending the model to include covariates. This is called the latent class regression model (LCR). Next we discuss past simulation studies that examined class enumeration on various latent variable models. 
 
+\section{The Latent Class Analysis Model}
+In this section we will first introduce the classic LCA model without covariates. Suppose there are $M$ polytomous manifest variables or items, $u_{1},...,u_{M}$ observed on $N$ individuals in a data sample. Let $\bm{u_{i}} = (u_{1i},...,u_{Mi})^{\intercal}$ denote the full response pattern of individual $i$. The LCA model represented in Figure 2.1 (Lazarsfled \& Henry, 1968; McCutcheon, 1987) assumes that the $M$ items are reflective of an underlying latent variable $C$, consisting of $K$ latent classes such that $C_{i}=k; k=1,2,...,K$ if individual $i$ belongs to class $k$. Path diagrams depicted in this thesis follow the convention used in \textit{Mplus Version 8.5 User Guide} (Muth\'en \& Muth\'en, 1998-2020). The joint distribution of the full response pattern can be expressed as 
 \begin{align}
-P(\bm{U_{i}}) &= \sum_{k=1}^{K} \bigg[ P(C_{i}=k) \cdot P(u_{1i},u_{2i},..,u_{M}|C_{i}=k)\bigg] \\
-&=\sum_{k=1}^{K} \bigg[ \pi_{k} \cdot P(u_{1i},u_{2i},..,u_{M}|C_{i}=k)\bigg]
-\end{align}
-The last term of equation 2.2 can be simplified by $conditional$ $independence$ which is assumed on the M items conditional on latent class membership. This assumption implies that all the associations shared among the observed items is strictly caused by the latent variable or another way of putting it, conditional on the latent variable, responses to all of the manifest variables are assumed to be statistically independent. Conditional independence is depicted in the first diagram of Figure 1. As shown, the items are only connected by the latent variable as indicated by the one-way directional path which signifies that the K items are only related through the latent variable. Thus, the classic latent class model is defined as: 
+P(\bm{U_{i}}) &= \sum_{k=1}^{K} \bigg[ P(C_{i}=k) \times P(u_{1i},u_{2i},..,u_{M}|C_{i}=k)\bigg] \\
+&=\sum_{k=1}^{K} \bigg[ \pi_{k} \times P(u_{1i},u_{2i},..,u_{M}|C_{i}=k)\bigg]
+\end{align} The last term of equation 2.2 can be simplified by \textit{conditional independence} which is assumed on the $M$ items conditional on latent class membership. Thus the classic latent class model without covariates is 
 \begin{align}
-P(\bm{U_{i}}) = \sum_{k=1}^{K} \bigg[ \pi_{k} \cdot  \prod_{m=1}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg ]
-\end{align}
-where $\mathbbm{1}(u_{mi} = r)=1$ if $u_{mi}=r$ and $0$ otherwise.
+P(\bm{U_{i}}) = \sum_{k=1}^{K} \bigg[ \pi_{k} \times  \prod_{m=1}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg ]
+\end{align} where $\mathbbm{1}(u_{mi} = r)=1$ if $u_{mi}=r$ and $0$ otherwise. This assumption implies that all the associations shared among the observed items is strictly caused by the latent variable or another way of putting it, conditional on the latent variable, responses to all of the observed items are assumed to be statistically independent. Conditional independence is depicted Figure 2.1. As shown, the items are only connected by the latent variable as indicated by the one-way directional path which signifies that the $M$ items are only related through the latent variable. 
+\vspace{1em}
 
-%%%%%%
-%
-% Place figure of classic LCA model here
-%
-%%%%%%
+\begin{figure}[h!]
+\centering
+%\scalebox{1}{
+\begin{tikzpicture}[
+  transform shape, node distance=2cm,
+  roundnode/.style={circle, draw=black, very thick, minimum size=7mm},
+  squarednode/.style={rectangle, draw=black, very thick, minimum size=5mm},
+  dotnode/.style={fill,inner sep=0pt,minimum size=2pt,circle} % <- this is new
+]
 
+%Nodes
+\node[roundnode] (latent) {$C$};
+\node[squarednode, left=4cm of latent] (u2) {$u_2$}; 
+\node[squarednode, above=0.5cm of u2]    (u3) {$u_3$};
+\node[squarednode, below=0.5cm of u2]    (u1) {$u_1$};
+\node[squarednode, above=0.75cm of u3]    (uk) {$u_m$};
 
-The classic LCA model is defined by two sets of parameters: the item response and class membership probabilities. The item response probabilities are the parameters of the $measurement model$ and describes the relationship between the latent variable and items observed (i.e. it indicates how likely an individual will endorse an item within each latent class and so these results are the basis for the overall interpretation of the latent classes). The vector of item response probabilities sum to 1 conditional on latent class since an individual provides one and only one response to each item within each class. The $structural model$ are class membership probabilities (i.e. class proportions or class size) and characterizes the overall distribution of the latent variable, which in the class LCA model specify the relative size of each latent class. Similarly, latent classes are mutually exclusive and exhaustive implying that individuals can only belong to one and only one latent class, hence, the class membership probabilities sum to 1. Three common parametrization are commonly used that all result in same LCA models: the probability parameterization, the log-linear parameterization and the multinational logistic regression parameterization. For this thesis, the distribution of latent variable is parameterized with a standard multinomial logistic regression. The equation is
+%Arrows 
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u1.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u2.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u3.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (uk.east);
+
+\path (u3) --
+  node[dotnode,pos=0.2]{}
+  node[dotnode,pos=0.5]{}
+  node[dotnode,pos=0.8]{}
+  (uk);
+\end{tikzpicture}%}
+\caption{A classic representation of the latent class model without covariates. The latent variable $C$, enclosed in the circle, is measured by a set of items $u_{1},u_{2},..,u_{m}$, enclosed in the rectangles. One-direction arrows connect the items and latent variable but no arrows connect the items, illustrating conditional independence on the items.}\label{fig2.1}
+\end{figure}
+
+\subsection{Defining the model parameters}
+The LCA model is defined by two sets of parameters: the item response probabilities and class membership probabilities. The item response probabilities describe the relationship between the latent variable and items observed. It indicates how likely an individual will endorse an item within each latent class and serves as the overall basis when assigning meaning to the latent classes. The vector of item response probabilities sum to $1$ within each class because individuals can provide one and only one response to each item. The class membership probabilities characterizes the the overall distribution of the latent variable, which in the LCA model specify the relative size of each latent class. Class membership probabilities are mutually exclusive and exhaustive implying that individuals can only belong to one and only one latent class, hence, these probabilities sum to $1$. The distribution of latent variable can be defined using a standard multinomial logistic regression: 
 \begin{align}
-    \pi_{k} = P(c_{i}=k) = \frac{exp(\beta_{0k})}{1 + \sum_{h=1}^{K-1}exp(\beta_{0h})}
-\end{align} where the reference category is latent class K such that $\beta_{K}=0$. The choice of the reference category is arbitrary and will not affect the results, however, it can impact the ease of interpretation.
+    \pi_{k} = P(c_{i}=k) = \frac{exp(\gamma_{0k})}{1 + \sum_{h=1}^{K-1}exp(\gamma_{0h})}
+\end{align} where $K$ is the reference category such that $\beta_{K}=0$. The choice of the reference category is arbitrary and will not affect the results, however, it can impact the ease of interpretation. 
 
-The distribution of the item-response probabilities may also be parameterized under a logistic regression framework. However, for the purpose of this thesis, a different modelling framework is specified, known as the ordinal latent response formulation. It may seem odd to assume items are ordinal categorical variables, however, in several substantive fields, a natural ranking exists among the responses categories. For example attitudinal questions on social and public opinion surveys follow a Likert-type scale that range from "strongly disagree" to "strongly agree" or from "least important" to "most important." Responses to other survey questions such as "never," "sometimes", "often", or "always" are also examples of ordered categories (Liao, 1994). This type of formulation is the most common in the structural equation modelling (SEM) additionally it is the chosen parametrization implemented in Mplus Software (Muth\'en \& Muth\'en, 2018). In the following, we will examine the ordinal latent response formulation in further detail. The following discussion follows from Skrondal \& Hesketh (2004) and Masyn (2017). The item $u_{mi}$, $m=1,2,...,M$ is an ordinal variable with $R$, possible response categories and can be viewed as a discretized form of a $continuous$ $latent$ $response$ $variable$ $u_{mi}^{*}$ or another way of putting it $u_{mi}^{*}$ an underlying continuum of $u_{mi}$. Assume that the relationship between $u_{mi}$ and $u_{mi}^{*}$ is modelled by the following, 
+The distribution of the item-response probabilities is parameterized under an ordinal logistic regression model, specifically the proportional odds model. It may seem odd to assume items are ordinal categorical variables, however, in several substantive fields, a natural ranking exists among the responses categories. For example attitudinal questions on social and public opinion surveys follow a Likert-type scale that range from ``strongly disagree" to ``strongly agree" or from ``least important" to ``most important." Responses to other survey questions such as ``never," ``sometimes", ``often", or ``always" are also examples of ordered categories. This type of formulation is also the chosen parametrization implemented in Mplus Software (Muth\'en \& Muth\'en, 2018). 
+
+The proportional odds model (McCullagh \& Nelder, 1989) can be expressed as latent variable model which is based on the ordinal latent response formulation. In the following, we examine the ordinal latent response formulation in further detail. Assume item $u_{mi}$, $m=1,2,...,M$, is an ordinal variable with $r_{m}=1,2,...,R_{m}$ response categories. $u_{mi}$ can be viewed as a coarsening form of a \texit{continuous latent response variable} $u_{mi}^{*}$ or another way of putting it $u_{mi}^{*}$ is an underlying continuum of $u_{mi}$ (Agresti, 2002). Now, if $u_{mi}$ was a continuous variable then $u_{mi} = u_{mi}^{*}$. Assume that the relationship between $u_{mi}$ and $u_{mi}^{*}$ is modelled by
 \begin{align}
-    u_{mi}^{*} = \bm{x}_{i}^\intercal \bm{\beta} + \epsilon_{i}
-\end{align} where $\bm{x}$ is a vector specifying covariate effects, $\bm{\beta}$ are the corresponding regression parameters and $\epsilon_{i}$ is the random component that follows a standard logistic distribution. However, note that the classic LCA model assume no covariate effects $\bm{x}^{\intercal} = \bm{0}^{\intercal}$. LCA models with covariate effects will be discussed in the following subsections. Now, if $u_{mi}$ was a continuous variable then $u_{mi} = u_{mi}^{*}$. For the case of a binary ordinal variable, the relationship between $u_{mi}$ and $u_{mi}^{*}$ conditional on latent class k is given by
+    u_{mi}^{*} = \bm{\beta}^\intercal \bm{x} + \epsilon_{i}
+    \end{align} where $\bm{x}$ is vector of values of $p$ covariate variables for person $i$ , $\bm{\beta}=(\beta_{1},...,\beta_{p})^\intercal$ are the corresponding regression parameters and $\epsilon_{i}$ is the error component that follows a standard logistic distribution. For the classic LCA model with no covariates and binary items, the relationship between $u_{mi}$ and $u_{mi}^{*}$ conditional on latent class $k$ can be expressed as
 \begin{align}
     u_{mi}=
     \begin{cases}
-    \hspace{1em}0 & \text{if } $ -\infty < u_{mi}^{*} \leq \tau_{1k}$ \\
-    \hspace{1em}1 & \text{if } $\tau_{1k} < u_{mi}^{*} \leq \infty $
+    \hspace{1em}0 & \text{if } $ -\infty < u_{mi}^{*} \leq \tau_{mk}$ \\
+    \hspace{1em}1 & \text{if } $\tau_{mk} < u_{mi}^{*} \leq \infty $
     \end{cases}
-\end{align} such that $\tau_{1k}$ is the cutoff point or threshold value that separate the response categories. For all individuals in population with $u_{mi}^{*}$ values less than $\tau_{1k}$ will manifest the outcome variable $u_{mi}$=0 and those greater than $\tau_{1k}$ will manifest $u_{mi}=1$. Based on the relations above, the item-response probabilities for a binary item is defined as
+\end{align} such that $\tau_{mk}$ is the cutoff point or threshold value that separate the response categories. For all individuals in the population with $u_{mi}^{*}$ values less than $\tau_{mk}$ will manifest outcome variable $u_{mi}=0$ and those greater than $\tau_{mk}$ will manifest $u_{mi}=1$. Based on these relations, the probability of endorsing a specific response category for item $u_{mi}$ given latent class membership $k$ is 
 \begin{align}
-    P(u_{mi}=1 | c_{i}=k) &= P(\tau_{1k} \leq u_{mi}^{*}) \nonumber \\
-    &= P(\tau_{1k} \leq \bm{x_{i}}^{\intercal}\bm{\beta} + \bm{\epsilon}_{i}) \nonumber \\
-    &= P( \bm{\epsilon}_{i} \geq \tau_{1k}) \nonumber \\
-    &= 1- F_{\epsilon}(\tau_{1k}) \nonumber 
-\end{align} Since $\epsilon_{i}$ $\sim$ $Logistic(0,1)$ therefore we have that,
-\begin{align}
-P(u_{mi}=1|c_{i}=k) &= \frac{1}{1+exp(\tau_{1k})} 
-\end{align} where $\tau_{1k}$ is the negative log odds of endorsing item $u_{mi}$ given membership in latent class, i.e. 
-\begin{align}
-     \tau_{1k} = -log\bigg( \frac{P(u_{mi=1}|c_{i}=k)}{P(u_{mi=0}|c_{i}=k)}\bigg)
+    P(u_{mi}=0|c_{i}=k) = P(u_{mi}^{*} \leq \tau_{mk}) &= P(\bm{\beta}^{\intercal}\bm{x} + \epsilon_{i} \leq \tau_{mk}) \nonumber \\
+    &= F_{\epsilon}(\tau_{mk}) \nonumber\\
+    &= \frac{1}{1+exp(-\tau_{mk})}
 \end{align}
-For an item with $R$ response categories and thereby $(R-1)$ thresholds. The latent response formulation model for $R$ responses is therefore,
+\begin{align}
+    P(u_{mi}=1 | c_{i}=k) = P(\tau_{mk} \leq u_{mi}^{*}) &= P(\tau_{mk} \leq \nonumber \bm{\beta}^{\intercal}\bm{x} + \epsilon_{i}) \nonumber \\
+    &= 1- F_{\epsilon}(\tau_{mk}) \nonumber \\
+    &= \frac{1}{1+exp(\tau_{mk})}
+\end{align}
+Thus the item response probabilities are defined by their cumulative probabilities and like logistic regression, the model can be interpreted using the logit or log odds. The logit for 2.8 is
+\begin{align}
+   logit\big[P(u_{mi}=1|c_{i}=k)\big] = log \bigg( \frac{P(u_{mi}=1|c_{i}=k)}{P(u_{mi}=0|c_{i}=k)}\bigg) = -\tau_{mk}
+\end{align} where $\tau_{mk}$ is the negative log odds of endorsing $u_{mi}=1$ conditional on class $k$, i.e. the odds of event $P(u_{mi}=1|c_{i}=k)$ is higher when $\tau_{mk}$ is more negative. In general, $r_{m}-1$ thresholds exist for an item with $r_{m}=1,2,..,R_{m}$ response categories. The ordinal latent response formulation is 
 \begin{align}
     u_{mi} =
     \begin{cases}
     \hspace{1em}0 & \text{if } $-\infty < u_{mi}^{*} \leq \tau_{1k}$ \\
     \hspace{1em}1 & \text{if } $\tau_{1k} < u_{mi}^{*} \leq \tau_{2k}$ \\
     &\hspace{0.2em}\vdots \\
-    R-1 & \text{if } $\tau_{R-1,k} < u_{mi}^{*} \leq \infty$ 
+    r_{m}-1 & \text{if } $\tau_{r_{m}-1,k} < u_{mi}^{*} \leq \infty$ 
     \end{cases}
-\end{align} where $\tau_{r-1,k}$ and $\tau_{rk}$ are the lower and upper thresholds respectively where each range corresponds to the $rth$ response category on the $u_{mi}$ scale. In this case, the item response probability is constructed based on cumulative probabilities as we are interested in obtaining the probability of attaining at least a given response probability, i.e. $P(u_{mi} \leq r) = P(u_{mi}^{*} \leq \tau_{r+1})$. Similarly to the binary case we have that,
+\end{align} where each range corresponds to the $r^{th}$ response category on the $u_{mi}$ scale such that $\tau_{1k} < \tau_{2k} ... < \tau_{r_{m}-1k}$, $\tau_{0k}=-\infty$ and $\tau_{r_{m}k} = \infty$. Therefore the item response probabilities are defined as:
 \begin{align}
-    P(u_{mi} \leq r | c_{i}=k) &= P(u_{mi}^{*} \leq \tau_{r+1,k}) \nonumber \\
-    &= P(\epsilon_{i} \leq \tau_{r+1,k}) \nonumber \\
-    &= F(\tau_{r+1,k}) \nonumber \\
-    &= \frac{1}{1 + exp(\tau_{r+1,k})}
-\end{align} or identically, 
-\begin{align}
-    log \bigg( \frac{P(u_{mi} \leq r)}{P(u_{mi} > r)} \bigg) = \tau_{r+1,k}
-\end{align}The individualized item-response probabilities for item $m$ in class $k$ with $R$ response categories is
-\begin{align}
-    P(u_{mi}=0|c_{i}=k) &= F(\tau_{m1}) \nonumber \\
-    P(u_{mi}=1|c_{i}=k) &= F(\tau_{m2}) - F(\tau_{m1}) \nonumber \\ 
-    &\vdots \nonumber \\
-    P(u_{mi}=R|c_{i}=k) &= 1 - F(\tau_{R-1}) 
-\end{align} where $F(\cdot)$ represent the standard logistic cumulative distribution function.
+    P(u_{mi}=r_{m}|c_{i}=k) &= P(u_{mi}^{*} \leq \tau_{r_{m}+1k}) - P(u_{mi}^{*} \leq \tau_{r_{m}k}) \nonumber \\
+    &= F_{\epsilon}(\tau_{r_{m}+1k}) - F_{\epsilon} (\tau_{r_{m}k}) 
+\end{align} where $F_{\epsilon}(\cdot)$ is the cumulative distribution of the standard logistic distribution. 
+
+\subsection{The purpose of item-response probabilities in \\ interpreting latent classes}
+Interpretation and labelling of the latent classes is based on the distribution of the item-response probabilities. In fact, the overall pattern of item-response probabilities reveal the strength of its relation with the latent variable. 
+
+To measure the latent variable accurately, it is vital the items used during the data collection process is ``good". A good item can be characterized as having perfect class homogeneity and class separation (Collins \& Lanza, 2010). 
+
+\subsubsection{Class Homogeneity}
+When latent class $k$ has a high degree of class homogeneity for a particular item, then there is a specific response category on that item that characterizes or epitomizes that latent class. According to Masyn (2017), high class homogeneity is indicated by high or low item-response probabilities, specifically when $P(u_{mi}=r_{m}|c_{i}=k) > 0.7$ or $P(u_{mi}=r_{m}|c_{i}=k) <  0.3$. For example, given a binary item-response probability of $0.95$ in a particular class $k$, we would say that individuals in class $k$ is $95\%$ more likely of endorsing that particular item and $5\%$ will not. Thus we would consider this response category for this item to be characteristic of this class. In contrast, consider the item-response probability of $0.51$. In this case, there is more uncertainty of whether the item is characteristic of the class because $51\%$ will endorse the item and remaining $49\%$ will not. Thus we would say the item has a low degree of class homogeneity. 
+
+\subsubsection{Class Separation}
+Class separation is the quality of distinguishing between the classes. Particularly, when there is high degree of class separation, the overall response pattern is uniquely characteristic to that particular latent class only and not for any other classes. Note that it is possible to have high class homogeneity and low class separation. For example, consider a two-class model, one class endorses a particular item with probability of $0.95$ and the other class endorses the exact item with a probability of $0.90$. In this case, classes are indistinguishable because that item is highly characteristic in both classes. Alternatively, consider a two-class model, the probability of endorsing a particular item is 0.85 in one class and 0.30 in another class. In this case, each class has high degree of class homogeneity and class separation because the first class can be characterized as more likely of endorsing that item whereas the second class will not. 
 
 \section{Latent Class Regression Model}
 Thus far we have discussed LCA models where the relationships between the observed items can solely be explained by a latent variable. In practice, however, there may be applications where we would like to relate a set of covariates to the latent variable and the observed items. This may improve the prediction of class membership and facilitate in the identification and interpretation of latent classes (Park \& Yu, 2018). In the following we will extend the standard LCA model to incorporate covariates. 
 
-Covariates are often added through a multinomial logistic regression parametrization (Dayton \& Macready, 1988) and can influence the set of observed items indirectly through the latent variable, or directly to items and bypass the latent variable completely (Masyn, 2013). Figure 2.2 illustrates the most common modelling situations with covariates with a single latent variable $c$
+\vspace{1.5em}
 
-%%%%%%
-%
-% Place figure of various pathways here 
-%
-%%%%%%%
-Figure 2.2a is an example of an indirect pathway. In this case, the set of covariate $\bm{w}=(w_{1},w_{2}...w_{q})$ is only influencing the latent variable $c$ which indirectly effects the set of items $\bm{u_{i}}=(u_{1i},u_{2i},u_{3i})$. Alternating equation 2.3, the general LCR model with an indirect pathway can be written as 
+\begin{figure}[h!]
+\centering
+\scalebox{1}{
+\begin{tikzpicture}[
+  transform shape, node distance=2cm,
+  roundnode/.style={circle, draw=black, very thick, minimum size=7mm},
+  squarednode/.style={rectangle, draw=black, very thick, minimum size=5mm},
+  dotnode/.style={fill,inner sep=0pt,minimum size=2pt,circle} % <- this is new
+]
+
+%Nodes Picture 1
+\node[roundnode] (latent) {$C$};
+\node[squarednode, left=2cm of latent] (u2) {$u_2$}; 
+\node[squarednode, above=1.65cm of latent] (x) {$\mathbf{x}$};
+\node[squarednode, above=0.5cm of u2]    (u3) {$u_3$};
+\node[squarednode, below=0.5cm of u2]    (u1) {$u_1$};
+\node[squarednode, above=0.75cm of u3]    (uk) {$u_m$};
+
+%Arrows 
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u1.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u2.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u3.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (uk.east);
+\draw[->,very thick,dotted] (x) -- node[]{} (latent.north);
+
+\path (u3) --
+  node[dotnode,pos=0.2]{}
+  node[dotnode,pos=0.5]{}
+  node[dotnode,pos=0.8]{}
+  (uk);
+  
+    \node[right=2.2cm of u1]{a}
+
+\end{tikzpicture}}
+\hspace{0.8cm}
+\scalebox{1}{
+\begin{tikzpicture}[%2nd Picture
+  transform shape, node distance=2cm,
+  roundnode/.style={circle, draw=black, very thick, minimum size=7mm},
+  squarednode/.style={rectangle, draw=black, very thick, minimum size=5mm},
+  dotnode/.style={fill,inner sep=0pt,minimum size=2pt,circle} % <- this is new
+]
+
+%Nodes Picture 3
+\node[roundnode] (latent) {$C$};
+\node[squarednode, left=2cm of latent] (u2) {$u_2$}; 
+\node[squarednode, above=1.65cm of latent] (x) {$\mathbf{x}$};
+\node[squarednode, above=0.5cm of u2]    (u3) {$u_3$};
+\node[squarednode, below=0.5cm of u2]    (u1) {$u_1$};
+\node[squarednode, above=0.75cm of u3]    (uk) {$u_m$};
+
+%Arrows 
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u1.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u2.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u3.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (uk.east);
+\draw[->,very thick,dotted] (x) -- node[]{} (latent.north);
+\draw[->,very thick,dashed] (x) -- node[]{} (u1.east);
+
+
+\path (u3) --
+  node[dotnode,pos=0.2]{}
+  node[dotnode,pos=0.5]{}
+  node[dotnode,pos=0.8]{}
+  (uk);
+  
+    \node[right=2.2cm of u1]{b}
+    
+\end{tikzpicture}}
+\hspace{0.8cm}
+\begin{tikzpicture}[
+  transform shape, node distance=2cm,
+  roundnode/.style={circle, draw=black, very thick, minimum size=7mm},
+  squarednode/.style={rectangle, draw=black, very thick, minimum size=5mm},
+  dotnode/.style={fill,inner sep=0pt,minimum size=2pt,circle} % <- this is new
+]
+
+
+%Nodes
+\node[roundnode] (latent) {$C$};
+\node[squarednode, left=2cm of latent] (u2) {$u_2$}; 
+\node[squarednode, above=1.65cm of latent] (x) {$\mathbf{x}$};
+\node[squarednode, above=0.5cm of u2]    (u3) {$u_3$};
+\node[squarednode, below=0.5cm of u2]    (u1) {$u_1$};
+\node[squarednode, above=0.75cm of u3]    (uk) {$u_m$};
+
+%Arrows 
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u1.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u2.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (u3.east);
+\draw[->,very thick,-stealth] (latent) -- node[]{} (uk.east);
+\draw[->,very thick,dashed] (x) -- node[]{} (u1.east);
+%\draw[->,very thick,dashed] (x) -- node[]{} (u2.east);
+
+\path (u3) --
+  node[dotnode,pos=0.2]{}
+  node[dotnode,pos=0.5]{}
+  node[dotnode,pos=0.8]{}
+  (uk);
+  
+  \node[right=2.2cm of u1]{c}
+\end{tikzpicture}}
+\caption{M1} \label{fig:M1}
+\end{figure}
+
+\vspace{-1em}
+
+\subsection{Covariate Pathways in LCR}
+
+\subsubsection{Indirect Effects}
+Covariates are often added through a multinomial logistic regression parametrization (Dayton \& Macready, 1988) and can influence the set of observed items indirectly via the latent variable, or directly in which the latent variable is entirely avoided (Masyn, 2013). Figure 2.2 illustrates  common LCR path diagrams with a single latent variable $C$. An indirect pathway is depicted in Figure 2.2a. In this case, the latent variable is dependent on the set of covariates $\bm{x}=(x_{1},x_{2}...x_{p})$ which thereby indirectly influences the items through the latent variable. The LCR model with an indirect pathway is given by:
 \begin{align}
-P(\bm{U_{i}}|\bm{w_{i}}) = \sum_{k=1}^{K} \bigg[ \pi_{k}(\bm{w_{i}}) \cdot  \prod_{m=1}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg ]
+P(\bm{U_{i}}|\bm{x_{i}}) = \sum_{k=1}^{K} \bigg[ \pi_{k}(\bm{x_{i}}) \times  \prod_{m=1}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg ]
 \end{align}
-where $\mathbbm{1}(u_{mi} = r)=1$ if $u_{mi}=r$ and $0$ otherwise. The class membership probabilities is defined as 
+where $\mathbbm{1}(u_{mi} = r_{m})=1$ if $u_{mi}=r_{m}$ and $0$ otherwise. The covariates are used to predict latent class membership but the item-response probabilities are independent of the covariates conditional on latent class membership and defined by (2.11). 
+The class membership probabilities are given by:
 \begin{align}
-    \pi_{k}(\bm{w}_{i}) &=  \frac{exp(\beta_{0k} + \sum_{j=1}^{p}\beta_{jk}w_{ij})}
-    {1 + \sum_{h=1}^{K-1}exp(\beta_{0k} + \sum_{j=1}^{p} \beta_{jk}w_{ij})}
-\end{align} where $\beta_{0K}=\beta_{1K}=0$ for identification. Figure 2.2b illustrates an example where a single covariate directly effects one item. Traditionally, we assume measurement invariance on the set of items, which implies that the set of covariates is conditionally independent from the items given class membership.When violated, it may lead to bias parameter estimates of the model due to the unmodelled association between the covariates and items, implying covariates directly effect the items (Janssen et. al, 2019). Referring back to our example, the vector $\bm{x}^\intercal=(x_{1},...,x_{p})$ is a source of measurement noninvariance for $u_{1}$. This implies that conditional item response probabilities for $u_{1}$ for each individual in class $k$ will differ with respect to their $x$ value but their probabilities for the remainder items are all the same as $x$ does not have any direct influences on these items. That is, 
+    \pi_{k}(\bm{x}_{i}) &=  \frac{exp(\gamma_{0k} + \sum_{j=1}^{p}\gamma_{jk}x_{ij})}
+    {1 + \sum_{h=1}^{K-1}exp(\gamma_{0k} + \sum_{j=1}^{p} \gamma_{jk}x_{ij})}
+\end{align} where $\gamma_{0K}=\gamma_{jK}=0$, $j=1,2,..,p$ for identification. 
+
+\hspace{-1.7em} Equivalently,
 \begin{align}
-P(\bm{U_{i}}|\bm{x}_{i}) = \sum_{k=1}^{K} \bigg[ \pi_{k} &\times \prod_{r_{1}=1}^{R_{1}}  P(u_{1i}=r_{1}|c_{i}=k,\bm{x}_{i})^{\mathbbm{1}(u_{1i} = r_{1})}  \nonumber \\
- & \times \prod_{m=2}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg ]
-\end{align}
-When both an indirect and direct effect exist in the model as depicted in Figure 2.2c, we have that 
+    logit\big[\pi_{k}(\bm{x}_{i})\big] = \gamma_{0k} + \sum_{j=1}^{p}\gamma_{jk}x_{ij}
+\end{align} Exponentiating both sides of (2.14) we can interpret the odds as a function of the covariates in which the odds increase multiplicatively by $exp(\gamma_{jk})$. More precisely, exponentiating the intercept $\gamma_{0k}$ produces the odds of membership in latent class $k$ relative to reference latent class $K$ when all the covariates are zero. Exponentiating the regression parameters $\gamma_{jk}$ can be interpreted as the multiplicative effect on the odds of membership in latent class $k$ in relation to the reference class $K$ associated with a one unit change in $x_{ij}$ while fixing the other covariates. 
+
+\subsubsection{Direct Effects}
+
+Figure 2.2c models a direct pathway where covariates influence item $u_{1}$ directly and bypass the latent variable. In the following, we will refer these as indirect effects (IDE) and direct effects (DE). With both IDE and DE as shown in Figure 2.2b, the latent variable depends on the covariates, and with the exception of item $u_{1}$, items are conditionally independent of the covariates given latent class membership. The DE on $u_{1}$ implies that it depends not only on the latent class membership but the covariates as well. Thus the relationship is given by: 
 \begin{align}
-P(\bm{U_{i}}|\bm{w}_{i},\bm{x}_{i}) = \sum_{k=1}^{K} \bigg[ \pi_{k}(\bm{w}_{i}) &\times \prod_{r_{1}=1}^{R_{1}}  P(u_{1i}=r_{1}|c_{i}=k,\bm{x}_{i})^{\mathbbm{1}(u_{1i} = r_{1})}  \nonumber \\
- & \times \prod_{m=2}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg]
-\end{align} where
+ P(\bm{U_{i}}|\bm{x_{i}}) = \sum_{k=1}^{K} \bigg[ \pi_{k}(\bm{x_{i}})  
+ &\times  \prod_{r_{1}=1}^{R_{1}} \big P(u_{1i}=r_{1}|c_{i}=k,\bm{x}_{i})^{\mathbbm{1}(u_{1i} = r_{1})} \\  \nonumber 
+ &\times \prod_{m=2}^{M}\prod_{r_{m}=1}^{R_{m}} P(u_{mi}=r_{m}|c_{i}=k)^{\mathbbm{1}(u_{mi} = r_{m})} \bigg ]
+\end{align} 
+Based on (2.5) and (2.10) we have 
 \begin{align}
-    log\bigg( \frac{P(u_{1i} \leq r|c=k,\bm{x}_{i})}{P(u_{1i} > r|c=k,\bm{x}_{i})}  \bigg) = \tau_{r+1,k} -\sum_{j=1}^{p} \beta_{j}x_{ij} 
-\end{align}
-based on the ordinal latent response formulation as discussed previously.
+    P(u_{1i} = r_{1}|c_{i}=k,\bm{x}_{i}) &= P(\bm{\beta}^{\intercal}\bm{x} + \epsilon_{i} \leq \tau_{r_{1+1k}}) - P(\bm{\beta}^{\intercal}\bm{x} + \epsilon_{i} \leq \tau_{r_{1k}}) \nonumber \\
+    &= F_{\epsilon}(\tau_{r_{1+1k}}-\bm{\beta}^{\intercal}\bm{x}) - F_{\epsilon}(\tau_{r_{1k}}-\bm{\beta}^{\intercal}\bm{x})
+\end{align} where $F(\cdot)$ is the cumulative distribution of the standard logistic distribution. In general we interpret the item-response probabilities using the proportional odds model as we are interested in estimating the probability of being at or below a given response category. 
+\begin{align}
+    P(u_{mi} \leq r_{m}|c_{i}=k,\bm{x}) = \frac{1}{1 + exp(-\tau_{r_{m+1k}} + \bm{\beta}^{\intercal}\bm{x})}
+\end{align} or equivalently 
+\begin{align}
+    log\bigg(\frac{P(u_{mi} \leq r_{m}|c_{i}=k,\bm{x})}{P(u_{mi} > r_{m}|c_{i}=k,\bm{x})} \bigg) = \tau_{r_{m+1k}} - ( \beta_{1}x_{1i}+\beta_{2}x_{2i} + ... + \beta_{p}x_{pi})
+\end{align} where $\tau_{r_{m+1k}}$ is odds of that the event response for item $u_{m}$ is below or equal to $r_{m}$ given latent class membership $k$ and all the covariates equal zero. The regression parameters are interpreted similarly as multinomial logistic regression, however, the effect of $x_{j}$ induces a change in the logit of belonging to the first up to the $r_{m}^{th}$ response category. More specifically, the odds that the response for item $u_{m}$ is less than or equal to category $r_{m}$, given class membership $k$, differs by a multiplicative factor of $exp(\beta_{j})$ for every one additional unit on $x_{j}$ while holding all the other covariates constant. 
 
-$\tau_{mk}$ is the negaitv elog odds of endosing $u_{m}$ give n memebeship in latent class k and observed value X=0. 
-$\beta_{m}$ is th elog odds ratio of endsoring item $u_{m}$ given membership in laent class k, for all k in 1,2,3...K. corresponding to a postive ne unit difference in X.
+In this derivation, the effect parameters are invariant to the choice of categories for $u_{mi}$. Therefore, the regression parameters are all equal for each logit and varies according to the threshold $\tau_{r_{m}}$. Thus the graphical representation of (2.18) is represented by a series of parallel lines where the distance between them is determined by the differences in the thresholds. The negative sign in (2.18) ensures that larger values of $\bm{\beta}^{\intercal}\bm{x}$ lead to a higher probability in the higher categories (McCullagh \& Nelder, 1989).
 
-Mention why we need direct effects and consquences of ignoring these effects 
+\subsubsection{Consequences of ignoring direct effects}
+Direct effects of covariates in the model are deemed as a source of measurement noninvariance or measurement bias. Specifically, we say a covariate $x$ is a source of measurement noninvarance on item $u_{1}$ if a direct effect is present between $x$ and $u_{1}$ (Masyn, 2017). This implies that the probability of endorsing $u_{1}$ for all individuals belonging in latent class $k$ would differ based on their $x$ values. In contrast, the probabilities of endorsing $u_{2},...,u_{M}$ would be equal for all individuals belonging in latent class $k$ since these items are conditionally independent of $x$. 
 
-Estimation of model parameters?? 
+Ignoring direct effects in the latent class regression model might result in biased estimates of the $\tau_{mk}s$ and lead to misspecification of the latent classes in terms of both the size and interpretation of each class. To illustrate this point, Masyn (2017) conducted simulations with two latent classes that were specified to be relatively homogeneous and well-separated. Results showed that even if a small direct effect was ignored in the analysis, it can result in substantial bias in the estimates. Janssen et. al (2018) examines two extensive simulations. They concluded that direct effects were needed when the model presented low class homogenity and/or strong direct effects. 
 
+Several literature discusses how to identify and test for direct effects. The use of global and local fit statistics to check for DE is common in latent variable modelling. An overview is given by Van der Schoot, Ligtig, and Hox (2012). Residual associations are more common in LC literature (e.g., Nagelkerke, Oberski, & Vermunt, 2017; Oberski, van Kollenburg, & Vermunt, 2013; Oberski, Vermunt, & Moors, 2015). In this simulation study, we assume direct effects are indeed present in the model. Our goal is to determine when direct effects should be incorporated into the class enumeration procedure. In the next section, we present a literature review on class enumeration.
 
+\hspace{1em}
 
+\section{Class Enumeration in Latent Variable Models}
 
+Selecting the correct number of latent classes, also known as class enumeration, is one of the major challenges in latent variable modelling. Generally, the enumeration phase is a time-consuming process as it requires estimation of several competing models with varying number of classes, and difficult since the final model is selected based on the examination of several fit criteria. Several simulations studies examining this issue under various types of latent variable models and modelling conditions such latent structure, number of latent classes, sample size, parameter structures and model complexity. Despite the numerous suggestions offered in these literature, a unanimous and preferable fit index for deciding the number of latent classes remains an unresolved issue. In this section, results of past simulation studies on class enumeration of LCA models will be discussed. Additionally, some related papers on other latent variable models are mentioned. 
+
+\subsection{Likelihood Ratio Tests}
+
+\hspace{1em} Likelihood ratio based tests (LRT) are commonly used for class enumeration. LRT can be used to compare the relative fit of two models that differ by a set of parameter restrictions. More specifically, it considers the log likelihood difference of two nested models as a test statistic. The chi-square likelihood ratio test $G^{2}$ (Bollen, 1989) is often used to compare the relative fit of nested models with differing number of classes, which under certain regularity conditions, has a chi-square distribution with degrees of freedom equal to the difference in the number of parameters of the two models. One regularity condition states that the parameter restrictions under the null model must be an interior point (and thus not a boundary point) of the permissible parameter space (Tekle et. al, 2016). 
+
+Though LCA models are considered nested models, $G^2$ is not applicable here as it violates the regularity condition stated above. For example, to test the fit of a $K$-class model (full model) vs. $K-1$ class model (restricted model), the restricted model is specified by restricting a set of parameters of the full model. Specifically, the class probability for one of the classes in the $K-1$ model is fixed at zero. This implies the class probabilities of one of $K$ classes must be fixed at the boundary of the parameter space of $K$-class model. Thus there is not enough information to estimate the item-response probabilities for that empty latent class, hence the distribution becomes undefined and not chi square distributed. Numerous simulations examining the performance of $G^2$ under various modelling conditions have all concluded that $G^2$ is not recommended for class enumeration. For example, B.S. Everitt's (1988) simulation study illustrated this point by testing a 2-class vs. 1-class model. It concluded that the distribution of $G^2$ statistic poorly approximated with chi-square distribution with one degrees of freedom and thus should not be used for assessing relative fit. In a more recent simulation study conducted by Nylund et. al (2007) analyzed $G^2$ under more complicated modelling conditions with varying sample sizes, model structural and number of items. The study also concluded that $G^2$ should not be used for class enumeration under any circumstances. In fact, their results indicated that as sample size increased, $G^2$ actually perform worse and would consistently reject the true model when testing $K-1$ vs. $K$-class model. 
+
+\subsection{Information Criteria}
+
+Several other fit measures have been considered. Nylund et. al. (2007) were the first to conduct a simulation study examining both the Vuong-Lo-Mendell-Rubin LRT (2001) and boostrapped LRT (BLRT) along with Akaike IC (AIC; Akaike, 1974), Consistent AIC (CAIC; Bozdogan, 1987), Bayesian IC (BIC; Schwartz, 1978) and adjusted BIC (ABIC; Sclove, 1987). The study examined these test while varying various design factors such as the number of latent classes and items, distribution of the population parameters and sample size. In almost all LCA model and sample size considerations, they concluded that BLRT, ABIC and BIC enumerated better than the other fit measures in which the true $K$ class model was identified nearly $95\%$ of the time. In terms of power for the LRT, both LMR-LRT and BLRT had good power for nearly all conditions in their study, but BLRT has more stable power for all samples sizes considered. Furthermore, when LMR-LRT does incorrectly identify the model, it has a tendency to overestimate the number of latent classes. Overall, they suggested the BIC as the more preferable criterion for class enumeration and AIC should never be used as it had tendency to overestimate the number of classes. Additionally, CAIC does appear to perform as well as BIC and ABIC but only if class separation and class homogeneity is low.
+
+Morovati (2014) examined similar fit measures on constrained LCA models where ordering restrictions were imposed on the latent classes. BLRT was the best of all ICs as achieved the highest accuracy rate regardless of the ordering of latent classes, number of items in the model and class proportion sizes. However with sample sizes less than n=1000, ABIC is a more trustworthy since it appears to be less sensitive to sample size changes. 
+
+Morgan (2015) investigated the performance on LCA models of mixed mode type (variable measure on different metric levels). Due to restrictions of their resources, BLRT was not examined in this study. It was concluded that LMR-LRT performed relatively well as the test was able to recover the true number of latent classes at least $60\%$ of time across all modelling conditions examined in the study. Specifically, the accuracy rate decreased when rare classes existed in the population but performed better in conditions with more similar class proportions. That is, class separation was observed an as important factor to class enumeration. But overall the ABIC is the preferred fit measure but notes that for sample sizes of less than n=500, AIC should be used. 
+
+Yang (2006) explored a simulation study with LCA models of continuous items with six ICs under various sample sizes and model dimensionality. It was shown that adjusted BIC (ABIC; Sclove,1987) outperformed AIC,consistent AIC (CAIC; Bozdogan), BIC and other ICs given there were at least 50 subjects per latent class. Additionally, effects of sample sizes and number of latent classes were both shown to be important in LCA model selection. Though BLRT is a promising fit measure, very little is known on about how to predict the power or the required sample size. Tekle et. al (2016) conducted a thorough power analysis for the BLRT to clarify design issues that influence statistical inference on the number of latent classes." The study showed that sample size required to achieve a specified power level depends on various factor of which class separation plays the most important role. That is, it may be the case that a sample size of 200 could achieve the desired power, whereas in other cases a sample size of 2000 may be necessary. Additionally, there is computational downfall of BLRT, as noted in Nylund et. al. (2007), the inclusion of BLRT in analysis will result in an increasing computing time of up to 35 times. 
+
+\subsection{Entropy Based Measures}
+
+Entropy based measures have also been proposed for class enumeration. Popularized in model-based clustering, entropy based fit measures assess the model at an individual level based on the posterior probabilities and thereby defines the overall quality of classification for the whole sample across all the latent classes. 
+
+Several fit measures have been proposed using entropy as a way of penalizing the model in conjunction with the model log likelihood. The classification likelihood (CLC; Biernacki \& Govaert, 1997) and integrated classification likelihood (ICL; Biernacki et. al., 2000) are two popular fit measures related to entropy. They have not been explored heavily in the context of LCA but have been explored in other latent variable mixture models. Forseca and Cardoso (2005) examined multiple fit measures and found that ICL outperformed all the fit measures in their study. In the context of Gaussian Mixture Models, ICL has performed equivalently as well as BIC when latent classes exhibit a high degree of class separation (Scrucce et. al, 2016). Larose et. al (2016) developed a new entropy-based fit measure which outperformed BIC and AIC and when applied to a real dataset, their fit measure was able to extract more detailed and useful latent classes. 
+
+However, despite the popularity, some do not share the same philosophy towards using entropy based fit measures for model selection. Because even when entropy may be close to 1, there can still be a high degree of latent class assignment error for some individuals since classification uncertainty may simply increase by chance for models with more latent classes. (Masyn, 2013). In other words, a 2-class model may appear better than a 3-class model purely due to to chance (Lanza \& Collins, 2011; Maysn, 2013). Henson, Reise and Kim (2007) explored  entropy based measures along with variet`y of fits in their simulation study and concluded that ABIC was the most accurate and the CLC, ICL and LMR-LRT showed limited utility. Similarly, Morgan (2015) also indicated that ICL should not be used for model selection due to it's poor performance. 
+
+\section{Inclusion of Covariates on Class Enumeration}
+
+Gibson and Masyn (2016) examined the impact of covariates in LCA and the misspecfication of covariate effects on class enumeration using BIC, LMR and BLRT. Their conclusions indicated that across all conditions, BIC and BLRT selected the correct solution the highest number of times. Additionally, they recommended the enumeration processes should be done without covariates. When the final number of classes K, is determined, covariates should only be included if there is evidence that the conditional independence assumption is violated. However, Gibson and Nylund (2016) note that their results cannot be generalized to real life applications since they did not consider complex covariate relationships such as models with both direct and indirect effects.  Others have advocated similar recommendations in the context of other latent variable models  (Collins and Lanza, 2009, Masyn, 2013; Petras and Masyn, 2010). 
+
+Lubke and Muth\'en (2007) examined this problem in the context of factor mixture models and suggested that including covariates during the class enumeration process provides additional knowledge to increase the performance of the fit indices and help when class separation is low. 
 

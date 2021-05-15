@@ -1,39 +1,10 @@
-Selecting the correct number of latent classes, also known as class enumeration, is one of the major challenges in latent variable modelling. Generally, the enumeration phase is a time-consuming process as it requires estimation of several competing models with varying number of classes, and difficult since the final model is selected based on the examination of several fit criteria. Several simulations studies examining this issue under various types of latent variable models and modelling conditions such latent structure, number of latent classes, sample size, parameter structures and model complexity. Despite the numerous suggestions offered in these literature, a unanimous and preferable fit index for deciding the number of latent classes remains an unresolved issue. In this section, results of past simulation studies on class enumeration for LCA models will be discussed. According to Lanza and Collins (2011), model selection can be grouped into three categories: likelihood based ratio tests, information criteria (IC), and entropy based criteria. 
 
 
-\section{Approximate Likelihood Ratio Test}
-\hspace{2em} Likelihood ratio tests (LRT) can be used to compare the relative fit of two models that differ by a set of parameter restrictions. More specifically, it considers the log likelihood difference of two nested models as a test statistic. The chi-square likelihood ratio test $G^{2}$ (Bollen, 1989) is often used to compare the relative fit of nested models with differing number of classes, which under certain regularity conditions, has a chi-square distribution with degrees of freedom equal to the difference in the number of parameters of the two models. One regularity condition states that the parameter restrictions under the null model must be an interior point (and thus not a boundary point) of the permissible parameter space (Tekle et. al, 2016). 
+\section{Fit Indexes Considered in the Study}
+The fit indices considered in this study are grouped into three categories of model selection: likelihood ratio based test, information criteria and entropy based measures. Specifically we evaluate LMS-LRT, BLRT, AIC, CAIC, BIC, ABIC, relative entropy and ICL. A detailed description of each fit index is discussed. 
 
-Though LCA models are considered nested models, $G^2$ is not applicable here as it violates the regularity condition stated above. For example, to test the fit of a $K$-class model (full model) vs. $K-1$ class model (restricted model), the restricted model is specified by restricting a set of parameters of the full model. Specifically, the class probability for one of the classes in the $K-1$ model is fixed at zero. This implies the class probabilities of one of $K$ classes must be fixed at the boundary of the parameter space of $K$-class model. Thus there is not enough information to estimate the item-response probabilities for that empty latent class, hence the distribution becomes undefined and not chi square distributed. Numerous simulations examining the performance of $G^2$ under various modelling conditions have all concluded that $G^2$ is not recommended for class enumeration. For example, B.S. Everitt's (1988) simulation study illustrated this point by testing a 2-class vs. 1-class model. It concluded that the distribution of $G^2$ statistic poorly approximated with chi-square distribution with one degrees of freedom and thus should not be used for assessing relative fit. In a more recent simulation study conducted by Nylund et. al (2007) analyzed $G^2$ under more complicated modelling conditions with varying sample sizes, model structural and number of items. The study also concluded that $G^2$ should not be used for class enumeration under any circumstances. In fact, their results indicated that as sample size increased, $G^2$ actually perform worse and would consistently reject the true model when testing $K-1$ vs. $K$-class model. 
-
-To resolve this issue two approximations of the LRT distribution have been proposed- the Lo, Mendell and Rubin LRT (LMR-LRT) (2001) and a Bootstrapped LRT (BLRT), both implemented in $Mplus$ $Software$. These LRT provide a $p$ value that dictates whether the $K$ class model fits significantly better than $K-1$ class model. Several simulation studies have been conducted examining their performance in selecting the correct number of classes. One study conducted by Morgan (2015) investigated the performance of LMR-LRT on LCA models of mixed mode type (variable measure on different metric levels). Due to restrictions of their resources, BLRT was not examined in this study. It was concluded that LMR-LRT performed relatively well as the test was able to recover the true number of latent classes at least $60\%$ of time across all modelling conditions examined in the study. Specifically, the accuracy rate decreased when rare classes existed in the population but performed better in conditions with more similar class proportions. That is, class separation was observed an as important factor to class enumeration. 
-
-In addition to examining LMR-LRT, Nylund et. al. (2007) were one of the first to examine the performance of the BLRT on class enumeration for LCA models. The study examined these test while varying various design factors such as the number of latent classes and items in the population, distribution of the latent classes and item response probabilities as well as metric level of the items. In almost all LCA model and sample size considerations, they concluded that BLRT clearly enumerated better than LMR-LRT in almost all modelling settings in which the true $k$ class model was identified nearly $95\%$ of the time. In terms of power, both LMR-LRT and BLRT have good power for nearly all conditions in their study, but BLRT has more stable power for all samples sizes considered. Furthermore, when LMR-LRT does incorrectly identify the model, it has a tendency to overestimate the number of latent classes.
-
-A similar study by Morovati (2014), examined the LMR-LRT and BLRT on constrained LCA models by imposing ordered restrictions on the latent classes. Results indicated that the BLRT was the best of all ICs considered as it performed more optimally regardless of the ordering of latent classes, number of items in the model and class proportion sizes. Tekle et. al (2016) conducted a thorough power analysis for the BLRT to "identify, clarify, and specify design issues that influence statistical inference on the number of latent classes." The study showed that sample size required to achieve a specified power level depends on various factor of which class separation plays the most important role. That is, it may be the case that a sample size of 200 could achieve the desired power, whereas in other cases a sample size of 2000 may be necessary. 
-
-Though as we will later discuss, LRT have some downfalls for class enumeration specifically it only allows for the comparison of two models at a time. And though BLRT is promising as indicated by the studies above, it is very computationally intensive. As noted by Nylund et. al (2007), the inclusion of BLRT in analysis will result in an increasing computing time of up to 35 times. 
-
-
-\section{Information Criteria}
-\hspace{2em} As an alternative to LRT, information criteria (ICs) can be used to access the relative fit of models based on maximum log likelihood value. As said before, ICs are a much more viable alternative to LRT as it not only takes up less computational time but more than two models can be compared at a time (i.e. models do not have to be nested). These criteria account for the balance between the goodness-of-fit (as captured by the log likelihood) of a model and the number of parameter. It captures the idea that model fit can always be improved by adding more parameters but by doing so will decrease model parsimony. 
-
-The criteria takes in a form of a penalized likelihood function, which increases with the number of parameters. ICs for model selection were introduced by Akaike (1987) who used the Kullback-Leillber information measure to form the Akaike's Information Criterion (AIC). Later on Schwartz (1978) formed a new set of ICs based on Bayesian statistics and introduced the Bayesian Information Criterion (BIC). Since then, many ICs have been derived for model selection. 
-
-Several ICs have been examined in simulation studies in the context of LCA models. Yang (2006) explored a simulation study with LCA models of continuous items with six ICs under various sample sizes and model dimensionality. It was shown that adjusted BIC (ABIC; Sclove,1987) outperformed AIC,consistent AIC (CAIC; Bozdogan), BIC and other ICs given there were at least 50 subjects per latent class. Additionally, effects of sample sizes and number of latent classes were both shown to be important in LCA model selection. 
-
-In addition to the LRT examined in their studies, Morovati (2014), Morgan (2015) and Nylund et. al (2007) also examined various ICs and concluded that ABIC and BIC is far superior compared to AIC and CAIC for most modelling combinations considered in their respected studies. Morovati (2014) concluded that if sample sizes were greater than n=1000, ABIC, BIC and CAIC could be used for class enumeration as they all performed equally well in their studies. But when sample sizes were less than n=1000, ABIC is a more trustworthy criterion since it appears to be less sensitive to sample size changes. Morgan (2015) preoduced similar results, suggesting ABIC over the BIC, but noted that for smaller samples, specifically when less than n=500, AIC is a more reliable choice. In contrast, Nylund et. al (2007) suggest the BIC as the more preferable criterion for class enumeration. The study also illustrates that the AIC should not be used for identifying the correct $K$ class model for any modelling settings and will likely overestimate the number of classes. Additionally, CAIC does appear to perform as well as BIC and ABIC but only if class separation and class homogeneity is low. 
-
-\section{An Entropy Based Criterion}
-Integrated Completed Likelhood (ICL; Biernacki, 2000) has been used to acessed the correct number of latent classes in finite mixture models. This approach maximizes the complete data likelihood, thereby including the allocation of observations to clusters in the model selection criterion (Bertoletti et. al (2015)). 
-
-
-
-This criterion has not been studied heavily in simulation studies related to LCA. Morgan (2015) 
-
-
-
-\hspace{2em} Talk about how not papers have been conducted examining class enumeration in regards to LCR models. Thus in this paper we will see if there is a more preferable index when models have covariates and also when it is best to incorporte these into the model to optimize class enumeration. 
+\subsection{Likelihood ratio based test}
+Likelihood ratio based test are one of the most common ways to compare the relative fit of two nested models based on the difference of their log likelihoods. The LRT is defined as 
 
 
 
@@ -41,13 +12,44 @@ This criterion has not been studied heavily in simulation studies related to LCA
 
 
 
+In our simulation, we consider the LMS-LRT and BLRT. 
 
 
 
 
 
+\subsection{Information Criteria}
+\hspace{1em} Next we examine the performance of AIC, BIC, SBIC and CAIC. Theoretically almost all information criteria are derived from the same foundation framework. A unique penalty term is included on the log likelihood measuring the complexity of the model by taking account the number of parameters and sample size. Because of the different penalty terms that can be imposed, Lin & Dayton (1997) says an infinite number of ICs can be produced. Sclove's (1987) equation summarizes the general relationship shared among ICs which takes the form of 
 
+\begin{align}
+    -2 \hspace{0.2em} log \hspace{0.2em} [max \hspace{0.2em} L(j)] + a(n)m(j) + b(j,n)
+\end{align}
+where $n$ is the sample size, max $L(j)$ denotes the maximum likelihood over the parameters, and $m(j)$ is the number of independent parameters in the $j$-th model. For any criterion, $a(n)$ is the cost of fitting an additional parameter and $b(j,n)$ is an additional term depending on the criterion and the model $j$ (Sclove, 1987). For example AIC is formulated with $a(n)=2$ for all sample sizes and $b(k,n)=0$. Similarly BIC is formulated with $a(n)=log(n)$ and $b(k,n)=0$. Table 4.1 shows all the information criterion considered in this study based on Sclove's equation
 
+\begin{table}
+    \caption{Summary of information criterion considered in study.}
+    \label{tab:my_label}
+    \vspace{1em}
+    \centering
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{c c c}
+    \toprule
+    Information Criterion & $a(n)$ & $b(j,n)$ \\
+    \midrule
+  AIC & $2$ & $0$ \\
+  BIC & $log(n)$ & $0$ \\
+  CAIC & $log(n) + 1$ & $0$ \\
+  SBIC & $log$\big($\frac{n+2}{24}$ \big) & $0$ \\
+    \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+\end{table}
 
+For sample sizes greater than 8, we can see that BIC favours models with fewer estimated parameters and thus penalizes more heavily for each additional parameter in comparison to AIC. CAIC penalizes slightly more heavily than BIC due to the added estimated parameter terms in its penalty. Thus CAIC will smaller models more compared to BIC. ABIC is computed similarly as BIC, however, $log(n)$ is replaced with $log\big(\frac{n+2}{24}\big)$ which is based on the Rissanen Information Criteria (Rissanen, 1978) for autoregression models. Because of this term difference, BIC penalizes more harshly compared to ABIC for additional parameters included in the model. For samples larger than 176, ABIC will penalize the model more than AIC (Henson, Reise \& Kim, 2007). 
 
+\subsection{Entropy based measures}
+Finally entropy based measures are considered. Specifically we analyze the performance of relative entropy as described in Ramaswamy, DeSarbo, Reibstein, Robinson, 1993:
 
+\begin{align}
+    E = 1 - \frac{\sum_{i=1}^{n} \sum_{k=1}^{K} -p_{ik} \hspace{0.1em} log \hspace{0.1em} p_{ik}}{n \hspace{0.1em} log \hspace{0.1em} K}
+\end{align} where $p_{ik}$ is individual $i$'s posterior probability of class membership. $E$ ranges from $0$ to $1$. 

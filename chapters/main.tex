@@ -1,5 +1,17 @@
-\documentclass[12pt]{report}
-\usepackage[utf8]{inputenc}
+\documentclass[12pt % The default document font size, options: 10pt, 11pt, 12pt
+oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+doublespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+]{report}
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{lmodern} % could change font type by calling a different package
+\usepackage{lastpage}
+\usepackage{mathptmx}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -10,7 +22,6 @@
 \usepackage{multirow}
 \usepackage{adjustbox}
 \usepackage{array}
-\usepackage{array}
 \usepackage{wrapfig}
 \usepackage{tabularx}
 \usepackage{bbm}
@@ -19,15 +30,32 @@
 \usepackage{booktabs}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\pgfplotsset{compat=1.12}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{subcaption}
+\usetikzlibrary{positioning,shapes,arrows}
+
+\usepackage{parskip} %this will put spaces between paragraphs
+\setlength{\parindent}{15pt}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{M.Sc. Thesis - S.Luo}
+\lhead{McMaster University}
+
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-\linespread{1.5}
+\linespread{2}
 \graphicspath{{images\}}
 
 \title{
-    {Thesis Title}\\
+    {Determining the correct number of classes in Latent Class Regression Models}\\
     {\large McMaster University}\\
 }
 
@@ -35,14 +63,13 @@
 
 \date{Day Month Year}
 
+
+
+
 \begin{document}
 
 \maketitle
 
-
-\chapter*{Dedication}
-
-\chapter*{Declaration}
 
 \chapter*{Acknowledgements}
 
@@ -53,7 +80,7 @@
 
 
 
-\chapter{Latent Class Regression Model}
+\chapter{Literature Review}
 \input{chapters/Chapter2}
 
 
@@ -61,24 +88,17 @@
 
 
 
- 
-\chapter{Previous Simulation Studies}
+
+\chapter{The Simulation Study}
 \input{chapters/Chapter3}
 
-
-\chapter{Fit Indexes Considered}
+\chapter{Results}
 \input{chapters/Chapter4}
 
 
-\chapter{The Simulation Study}
+
+\chapter{Conclusions}
 \input{chapters/Chapter5}
-
-\chapter{Results}
-\input{chapters/Chapter6}
-
-
-
-
 
 
 \appendix
