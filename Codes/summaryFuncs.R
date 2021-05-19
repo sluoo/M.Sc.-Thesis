@@ -86,10 +86,55 @@ summary <- function(population,split,criteria=c("pvalue","IC")){
     }
 }
 
+#Clean table. Extract pvalue for aVLMR and BLRT 
+obtain_P <- function(Population,Split,Quality,Effect,Sample,Cov,LRT){
+  target = file.path("/home/luos5",Population,Split,Quality,Effect,Sample,Cov,"Inputs")
+  allOuts <- readModels(target, what = "summaries")
+  allOuts_New <- do.call("rbind.fill",sapply(allOuts,"[","summaries"))
+df_pval <- (allOuts_New %>% select(Filename,LRT)
+              %>% separate(Filename,c("Class",NA,"Sample","Rep",NA,NA))
+              %>% spread(Class,LRT))
+  
+
+#Define Index
+size = dim(df_pval)[1]
+from=3
+to=dim(df_pval)[2]
+#Storage
+l <- data.frame()
+lClass <- c()
+  for (i in 1:size){
+    for(j in from:to){
+        l[i,j-2]<-df_pval[i,j] > 0.05
+    }
+    #add 1 to correct for index (labelling latent classes)
+    lClass[i] <- min(which(l[i,]==TRUE)) + 1
+  }
+  df1 <- (data.frame(df_pval,lClass) %>% 
+            dplyr::group_by(lClass) %>% dplyr::summarise(total=dplyr::n()/size))
+  dff <- list(df_pval,df1)
+return(dff)
+}
 
 
+auto_obtain1 <- function(pop,split,quality,effect,cov){
+  storage <-list()
+  sample = list(200,500,1000,2000)
+    for (i in 1:length(sample)){
+      storage[i]<-obtain_P(pop,split,quality,effect,sample[i],cov,"T11_LMR_PValue")[2]
+    }
+  return(storage)
+}
 
 
+auto_obtain2 <- function(pop,split,quality,effect,cov){
+  storage <-list()
+  sample = list(200,500,1000,2000)
+  for (i in 1:length(sample)){
+    storage[i]<-obtain_P(pop,split,quality,effect,sample[i],cov,"BLRT_PValue")[2]
+  }
+  return(storage)
+}
 
 
 #Function to extract IC + entropy 
