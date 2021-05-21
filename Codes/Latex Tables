@@ -1,0 +1,111 @@
+\documentclass[a4paper]{article}  % specify page size
+\usepackage[margin=0.5in]{geometry} % specify text block size
+\usepackage{rotating,tabularx,amssymb,ragged2e,booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+
+\begin{document}
+
+\begin{table}
+    \centering
+    \caption{Proportion of times a non-significant $p$-value selected a given class model for the aVLMR for population A.}
+    \label{tab:aVLMR_P1}
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{C{3cm} C{2cm} C{1.5cm} C{0.4cm} C{0.4cm} >{\columncolor[HTML]{C0C0C0}}C{0.4cm} C{0.4cm} C{0.4cm}  C{0.4cm}  C{0.4cm}  >{\columncolor[HTML]{C0C0C0}}C{0.4cm} C{0.4cm}  C{0.4cm}  C{0.4cm}  C{0.4cm}  >{\columncolor[HTML]{C0C0C0}}C{0.4cm} C{0.4cm}  C{0.4cm}  C{0.4cm}  C{0.4cm}  >{\columncolor[HTML]{C0C0C0}}C{0.4cm} C{0.4cm}  C{0.4cm}}
+    \toprule
+    \multicolumn{9}{r}{Split 1} & & & &   \multicolumn{11}{c}{Split 2}\\ 
+    \cmidrule(lr){4-13} \cmidrule(lr){14-23}
+        & &  & &  \multicolumn{4}{l}{\small{No Covariates}} 
+          &
+        & \multicolumn{4}{l}{\small{Covariates}} 
+        &
+        &  \multicolumn{4}{l}{\small{No Covariates}}
+        &
+        &  \multicolumn{4}{l}{\small{Covariates}}\\
+     \cmidrule(lr){4-8} \cmidrule(lr){9-13} \cmidrule(lr){14-18} \cmidrule(lr){19-23}
+    Quality & \small{Effect Size} & Sample & 1 & 2 & 3 & 4 & 5 & 1 & 2 & 3 & 4 & 5 & 1 & 2 & 3 & 4 & 5 & 1 & 2 & 3 & 4 & 5\\
+    \midrule
+    \midrule
+High Quality     & 0.4 & 200  & 6  & 72 & 20 & 1  & 0 & 11 & 75 & 12 & 1  & 0 & 0 & 80 & 17 & 3  & 0 & 0 & 85 & {\color[HTML]{000000} 14} & 2  & 0 \\
+                 &     & 500  & 2  & 23 & 70 & 5  & 0 & 2  & 28 & 66 & 4  & 0 & 0 & 32 & 61 & 8  & 0 & 0 & 2  & {\color[HTML]{000000} 87} & 11 & 0 \\
+                 &     & 1000 & 0  & 1  & 91 & 8  & 0 & 0  & 2  & 90 & 8  & 0 & 0 & 2  & 89 & 9  & 0 & 0 & 3  & {\color[HTML]{000000} 87} & 11 & 0 \\
+                 &     & 2000 & 0  & 0  & 88 & 12 & 1 & 0  & 1  & 89 & 10 & 0 & 0 & 0  & 87 & 13 & 0 & 0 & 0  & {\color[HTML]{000000} 90} & 8  & 0 \\
+                 & 0.9 & 200  & 3  & 76 & 20 & 2  & 0 & 3  & 79 & 16 & 2  & 0 & 0 & 78 & 19 & 3  & 0 & 0 & 84 & {\color[HTML]{000000} 15} & 0  & 0 \\
+                 &     & 500  & 6  & 22 & 66 & 5  & 0 & 0  & 28 & 68 & 3  & 0 & 0 & 29 & 61 & 10 & 0 & 0 & 90 & {\color[HTML]{000000} 2}  & 9  & 0 \\
+                 &     & 1000 & 0  & 1  & 92 & 8  & 0 & 0  & 0  & 92 & 8  & 0 & 0 & 2  & 87 & 11 & 0 & 0 & 2  & {\color[HTML]{000000} 88} & 10 & 0 \\
+                 &     & 2000 & 0  & 0  & 92 & 9  & 0 & 0  & 0  & 91 & 9  & 0 & 0 & 0  & 89 & 11 & 0 & 0 & 0  & {\color[HTML]{000000} 92} & 8  & 0 \\
+                 & 1.5 & 200  & 0  & 75 & 23 & 2  & 0 & 1  & 80 & 18 & 1  & 0 & 5 & 8  & 76 & 11 & 0 & 0 & 42 & {\color[HTML]{000000} 53} & 5  & 0 \\
+                 &     & 500  & 0  & 26 & 65 & 9  & 0 & 0  & 31 & 63 & 6  & 0 & 0 & 0  & 87 & 12 & 0 & 0 & 3  & {\color[HTML]{000000} 91} & 5  & 0 \\
+                 &     & 1000 & 0  & 1  & 90 & 11 & 0 & 0  & 1  & 89 & 8  & 0 & 0 & 0  & 89 & 11 & 0 & 0 & 0  & {\color[HTML]{000000} 92} & 8  & 0 \\
+                 &     & 2000 & 0  & 0  & 89 & 12 & 0 & 0  & 0  & 89 & 10 & 0 & 0 & 0  & 88 & 12 & 0 & 0 & 0  & {\color[HTML]{000000} 92} & 7  & 0 \\
+Moderate Quality & 0.4 & 200  & 1  & 58 & 38 & 4  & 0 & 1  & 65 & 32 & 2  & 0 & 0 & 20 & 69 & 11 & 0 & 0 & 2  & {\color[HTML]{000000} 86} & 12 & 0 \\
+                 &     & 500  & 0  & 12 & 83 & 6  & 0 & 0  & 15 & 81 & 5  & 0 & 0 & 0  & 91 & 9  & 0 & 0 & 0  & {\color[HTML]{000000} 90} & 9  & 0 \\
+                 &     & 1000 & 0  & 0  & 92 & 9  & 0 & 0  & 1  & 92 & 7  & 0 & 0 & 0  & 88 & 12 & 0 & 0 & 0  & {\color[HTML]{000000} 86} & 12 & 0 \\
+                 &     & 2000 & 0  & 0  & 92 & 9  & 0 & 0  & 0  & 92 & 7  & 0 & 0 & 0  & 87 & 13 & 0 & 0 & 0  & {\color[HTML]{000000} 87} & 13 & 0 \\
+                 & 0.9 & 200  & 0  & 44 & 52 & 5  & 0 & 0  & 44 & 52 & 3  & 0 & 0 & 0  & 86 & 13 & 0 & 0 & 0  & {\color[HTML]{000000} 2}  & 89 & 9 \\
+                 &     & 500  & 0  & 4  & 91 & 6  & 0 & 0  & 2  & 91 & 7  & 0 & 0 & 0  & 89 & 11 & 0 & 0 & 0  & {\color[HTML]{000000} 93} & 7  & 0 \\
+                 &     & 1000 & 0  & 0  & 92 & 9  & 0 & 0  & 0  & 93 & 7  & 0 & 0 & 0  & 87 & 13 & 0 & 0 & 0  & {\color[HTML]{000000} 90} & 10 & 0 \\
+                 &     & 2000 & 0  & 0  & 89 & 10 & 0 & 0  & 0  & 93 & 7  & 0 & 0 & 0  & 90 & 10 & 0 & 0 & 0  & {\color[HTML]{000000} 93} & 7  & 0 \\
+                 & 1.5 & 200  & 1  & 18 & 72 & 10 & 0 & 1  & 12 & 79 & 7  & 0 & 0 & 0  & 88 & 11 & 0 & 0 & 0  & {\color[HTML]{000000} 10} & 90 & 0 \\
+                 &     & 500  & 0  & 0  & 93 & 7  & 0 & 0  & 0  & 95 & 4  & 0 & 0 & 0  & 88 & 11 & 0 & 0 & 0  & {\color[HTML]{000000} 91} & 9  & 0 \\
+                 &     & 1000 & 0  & 0  & 92 & 10 & 0 & 0  & 0  & 92 & 7  & 0 & 0 & 0  & 87 & 12 & 0 & 0 & 0  & {\color[HTML]{000000} 90} & 10 & 0 \\
+                 &     & 2000 & 0  & 3  & 89 & 10 & 0 & 0  & 0  & 93 & 7  & 0 & 0 & 0  & 89 & 11 & 0 & 0 & 0  & {\color[HTML]{000000} 90} & 8  & 0 \\
+Low Quality      & 0.4 & 200  & 6  & 63 & 30 & 4  & 0 & 7  & 69 & 22 & 1  & 0 & 7 & 12 & 65 & 14 & 0 & 7 & 15 & {\color[HTML]{000000} 69} & 8  & 0 \\
+                 &     & 500  & 1  & 30 & 63 & 8  & 0 & 2  & 35 & 58 & 5  & 0 & 0 & 2  & 87 & 10 & 0 & 3 & 1  & {\color[HTML]{000000} 87} & 9  & 0 \\
+                 &     & 1000 & 0  & 4  & 89 & 9  & 0 & 1  & 4  & 86 & 8  & 0 & 1 & 87 & 10 & 0  & 0 & 0 & 0  & {\color[HTML]{000000} 91} & 8  & 0 \\
+                 &     & 2000 & 0  & 0  & 91 & 12 & 0 & 0  & 0  & 91 & 9  & 0 & 0 & 0  & 88 & 11 & 0 & 0 & 0  & {\color[HTML]{000000} 89} & 10 & 0 \\
+                 & 0.9 & 200  & 7  & 52 & 38 & 4  & 0 & 9  & 56 & 32 & 3  & 0 & 8 & 10 & 70 & 12 & 0 & 8 & 10 & {\color[HTML]{000000} 75} & 7  & 0 \\
+                 &     & 500  & 3  & 14 & 74 & 12 & 0 & 3  & 12 & 78 & 6  & 0 & 1 & 85 & 12 & 0  & 0 & 0 & 0  & {\color[HTML]{000000} 89} & 10 & 0 \\
+                 &     & 1000 & 1  & 1  & 89 & 11 & 0 & 1  & 0  & 90 & 8  & 0 & 0 & 0  & 88 & 10 & 0 & 0 & 0  & {\color[HTML]{000000} 91} & 9  & 0 \\
+                 &     & 2000 & 0  & 0  & 75 & 27 & 0 & 0  & 0  & 92 & 7  & 0 & 0 & 0  & 87 & 13 & 0 & 0 & 0  & {\color[HTML]{000000} 89} & 10 & 0 \\
+                 & 1.5 & 200  & 10 & 34 & 53 & 5  & 0 & 12 & 26 & 56 & 5  & 0 & 5 & 8  & 75 & 11 & 0 & 3 & 6  & {\color[HTML]{000000} 83} & 8  & 0 \\
+                 &     & 500  & 5  & 3  & 84 & 10 & 0 & 7  & 1  & 83 & 8  & 0 & 0 & 87 & 12 & 0  & 0 & 0 & 0  & {\color[HTML]{000000} 92} & 8  & 0 \\
+                 &     & 1000 & 0  & 5  & 83 & 12 & 0 & 7  & 0  & 85 & 9  & 0 & 0 & 0  & 88 & 11 & 0 & 0 & 0  & {\color[HTML]{000000} 92} & 8  & 0 \\
+                 &     & 2000 & 0  & 2  & 85 & 13 & 0 & 4  & 0  & 86 & 9  & 0 & 0 & 0  & 87 & 12 & 0 & 0 & 0  & {\color[HTML]{000000} 90} & 11 & 0
+    \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+\end{table}
+
+\newpage
+
+
+
+
+\begin{table}
+    \centering
+    \caption{Proportion of times a non-significant $p$-value selected a given model for the BLRT for population A}
+    \label{tab:BLRT_P1}
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{C{3cm} C{2cm} C{1.5cm} C{0.4cm} C{0.4cm} >{\columncolor[HTML]{C0C0C0}}C{0.4cm} C{0.4cm} C{0.4cm}  C{0.4cm}  C{0.4cm} >{\columncolor[HTML]{C0C0C0}} C{0.4cm} C{0.4cm}  C{0.4cm}  C{0.4cm} C{0.4cm} >{\columncolor[HTML]{C0C0C0}}  C{0.4cm} C{0.4cm}  C{0.4cm}  C{0.4cm}  C{0.4cm}  >{\columncolor[HTML]{C0C0C0}} C{0.4cm} C{0.4cm}  C{0.4cm}}
+    \toprule
+    \multicolumn{9}{r}{Split 1} & & & &   \multicolumn{11}{c}{Split 2}\\ 
+    \cmidrule(lr){4-13} \cmidrule(lr){14-23}
+        & &  & &  \multicolumn{4}{l}{\small{No Covariates}} 
+          &
+        & \multicolumn{4}{l}{\small{Covariates}} 
+        &
+        &  \multicolumn{4}{l}{\small{No Covariates}}
+        &
+        &  \multicolumn{4}{l}{\small{Covariates}}\\
+     \cmidrule(lr){4-8} \cmidrule(lr){9-13} \cmidrule(lr){14-18} \cmidrule(lr){19-23}
+    Quality & \small{Effect Size} & Sample & 1 & 2 & 3 & 4 & 5 & 1 & 2 & 3 & 4 & 5 & 1 & 2 & 3 & 4 & 5 & 1 & 2 & 3 & 4 & 5\\
+    \midrule
+    \midrule
+   
+    
+
+    \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+\end{table}
+
+
+\end{document}
