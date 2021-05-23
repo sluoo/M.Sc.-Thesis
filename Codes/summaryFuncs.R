@@ -117,7 +117,7 @@ return(dff)
 }
 
 
-auto_obtain1 <- function(pop,split,quality,effect,cov){
+obtainLMR <- function(pop,split,quality,effect,cov){
   storage <-list()
   sample = list(200,500,1000,2000)
     for (i in 1:length(sample)){
@@ -127,7 +127,7 @@ auto_obtain1 <- function(pop,split,quality,effect,cov){
 }
 
 
-auto_obtain2 <- function(pop,split,quality,effect,cov){
+obtainBLRT<- function(pop,split,quality,effect,cov){
   storage <-list()
   sample = list(200,500,1000,2000)
   for (i in 1:length(sample)){
