@@ -30,62 +30,6 @@ pdta <- function(dta){
   return(LRT)
 }
 
-
-summary <- function(population,split,criteria=c("pvalue","IC")){
-  #construct file path
-  #quality <- c("HighQuality","ModerateQuality","LowQuality")
-  #effect <- c('0.4','0.9','1.5')
-  #sample <- c('200','500','1000','2000')
-  #cov <- c("NoCov","WithCov")
-  
-  quality <- c("HighQuality")
-  effect <- c('0.4')
-  sample <- c('200')
-  cov <- c("NoCov",'WithCov')
-  main <-list()
-  
-    for (q in quality){
-      for(e in effect){
-        for (s in sample){
-          for (c in cov){
-            
-            #fp <- file.path("/home/luos5",population,split,q,e,s,c,"Inputs")
-            fp_test <- file.path("/home/luos5/test1/NoCov/Inputs") #delete later
-            allOut <- readModels(fp_test, what= "summaries")
-            allOutBind <- as_tibble(do.call("rbind.fill", sapply(allOut,"[","summaries")))
-            
-            if (criteria == "pvalue"){
-              dta_v <- pdta(allOutBind)$VLMR
-              l <- dim(pdta(dta)$VLMR)[1]
-              v_LC <- (dta_v 
-                           %>% select(-c(SampleSize,nRep))
-                           %>% apply(1,pos)) 
-              return(cbind(dta_v,v_LC))
-              
-              
-
-              
-              
-              
-              
-              
-              
-            }
-            else{
-              
-            
-            }
-            
-            
-            
-            
-    
-          }
-        }
-      }
-    }
-}
-
 #Clean table. Extract pvalue for aVLMR and BLRT 
 obtain_P <- function(Population,Split,Quality,Effect,Sample,Cov,LRT){
   target = file.path("/home/luos5",Population,Split,Quality,Effect,Sample,Cov,"Inputs")
@@ -136,8 +80,6 @@ obtainBLRT<- function(pop,split,quality,effect,cov){
   return(storage)
 }
 
-
-#Function to extract IC + entropy 
 
 
 
