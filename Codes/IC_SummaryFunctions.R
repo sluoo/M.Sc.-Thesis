@@ -1,4 +1,4 @@
-#Calculate - add to summary function 
+#Calculate - add to IC_summary_fctn
 #ICL = BIC + 2[(Ek-1)nlogK]
 #CLC = -2LL + 2[(Ek-1)nlogK]
 
