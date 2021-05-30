@@ -91,7 +91,7 @@ return(all)
 
 # for (s in seq_along(list_df_samples)){
 # 	for (ic in seq_along(list_IC)){
-# 		store_IC[[ic]] <-IC_summary_fctn(list_df_samples,list_IC[[ic]])
+# 		store_IC[[ic]] <-IC_summary_fctn(list_df_samples[[s]],list_IC[[ic]])
 # 	}
 # 	list_store_IC_samples[[s]] <- store_IC
 # }
