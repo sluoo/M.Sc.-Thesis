@@ -63,19 +63,19 @@ obtain_IC_prop<- function(p,s,q,e,c){
 		fp <- file.path("/home/luos5",p,s,q,e,sample[[i]],c,"Inputs")
 		all_dta <- readModels(target = fp, what="summaries")
 		all_dta_store[[i]] <- as_tibble(do.call("rbind.fill", sapply(all_dta,"[","summaries")))}
-
+	#list for storage and ICs used
 	list_IC <- list("AIC","CAIC","BIC","aBIC","ICL","CLC")
 	list_df_samples <- all_dta_store
 	store_IC <- list()
 	list_store_IC_samples <- list()
-
+	#loop through each IC and store 
 	for (s in seq_along(list_df_samples)){
 		for (ic in seq_along(list_IC)){
 			store_IC[[ic]] <-IC_summary_fctn(list_df_samples,list_IC[[ic]])
 		}
 		list_store_IC_samples[[s]] <- store_IC
 	}
-
+	#store and rbind
 	all <- list(do.call(rbind,list_store_IC_samples[[1]]), do.call(rbind,list_store_IC_samples[[2]]),
 		do.call(rbind,list_store_IC_samples[[3]]), do.call(rbind,list_store_IC_samples[[4]]))
 names(all) <- c("200","500","1000","2000") #name list called all 
