@@ -9,25 +9,9 @@ pacman::p_load(MplusAutomation,tidyverse,plyr)
 #one less class. Looking at these p values, we identified the model selected based
 #on the occurrence of the first nonsignificant p value (p > .05).
 
-
+#Function to obtain position given satisfied condition 
 pos <- function(x){
   min(which(x >= 0.05))+1
-}
-
-pdta <- function(dta){
-  LRT <- list()
-  LRT[["VLMR"]] <-(dta
-                   %>% select(Filename,T11_VLMR_PValue)
-                   %>% separate(Filename,c("NumLC",NA,"SampleSize","nRep",NA))
-                   %>% mutate(nRep=as.numeric(nRep))
-                   %>% pivot_wider(names_from = NumLC,values_from=T11_VLMR_PValue))
-  
-  LRT[["BLRT"]] <-(dta
-                   %>% select(Filename,BLRT_PValue)
-                   %>% separate(Filename,c("NumLC",NA,"SampleSize","nRep",NA))
-                   %>% mutate(nRep=as.numeric(nRep))
-                   %>% pivot_wider(names_from = NumLC,values_from=BLRT_PValue))
-  return(LRT)
 }
 
 #Clean table. Extract pvalue for aVLMR and BLRT 
@@ -70,7 +54,6 @@ obtainLMR <- function(pop,split,quality,effect,cov){
   return(storage)
 }
 
-
 obtainBLRT<- function(pop,split,quality,effect,cov){
   storage <-list()
   sample = list(200,500,1000,2000)
@@ -81,6 +64,22 @@ obtainBLRT<- function(pop,split,quality,effect,cov){
 }
 
 
+# #extract BLRT and aLMR p-value from data 
+# pdta <- function(dta){
+#   LRT <- list()
+#   LRT[["VLMR"]] <-(dta
+#                    %>% select(Filename,T11_VLMR_PValue)
+#                    %>% separate(Filename,c("NumLC",NA,"SampleSize","nRep",NA))
+#                    %>% mutate(nRep=as.numeric(nRep))
+#                    %>% pivot_wider(names_from = NumLC,values_from=T11_VLMR_PValue))
+  
+#   LRT[["BLRT"]] <-(dta
+#                    %>% select(Filename,BLRT_PValue)
+#                    %>% separate(Filename,c("NumLC",NA,"SampleSize","nRep",NA))
+#                    %>% mutate(nRep=as.numeric(nRep))
+#                    %>% pivot_wider(names_from = NumLC,values_from=BLRT_PValue))
+#   return(LRT)
+# }
 
 
 
