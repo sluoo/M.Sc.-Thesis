@@ -4,36 +4,17 @@
 
 #setwd("/Users/sherry/Desktop")
 
-load("~/Desktop/200_sampleHQS104.Rda") #all_dta200
-load("~/Desktop/500_sampleHQS104.Rda") #all_dta500
-
+#Testing data - comment out later 
+#load("~/Desktop/200_sampleHQS104.Rda") #all_dta200
+#load("~/Desktop/500_sampleHQS104.Rda") #all_dta500
+#t <- list(all_dta200,all_dta500)
 
 library(tidyverse)
 library(stringr)
 library(MplusAutomation)
 library(plyr)
 
-
-getOutFiles <- function(p,s,q,e,c){
-	#p: population
-	#s: split
-	#q: quality 
-	#e: effect 
-	sample=list(200,500,1000,2000)
-	all_dta_store <-list[[]]
-	#c: no cov/with cov 
-	for (i in 1:length(sample)){
-		fp <- file.path("/home/luos5",p,s,q,e,sample[[i]],c,"Inputs")
-		all_dta <- readModels(target = fp, what="summaries")
-		all_dta_store[[i]] <- as_tibble(do.call("rbind.fill", sapply(all_dta,"[","summaries")))}
-return(all_dta_store)
-}
-
-#getOutFiles() returns a list of data frames for each sample
-
-t <- list(all_dta200,all_dta500)
-
-#Function returns table of selected IC of all replications values along with the selected latent class with the minimum IC value 
+#Function returns table of selected IC of all replications values along with the selected latent class as determined by each IC value
 tbl_idxSelector <- function(df,IC){
 	(df #data frame with all IC values for every rep and latent class run (called data fit_tab)
 	 %>% select(starts_with(IC))
@@ -101,7 +82,6 @@ names(all) <- c("200","500","1000","2000") #name list called all
 return(all)
 }
 
-
 # #Testing Function 
 # list_IC <- list("AIC","CAIC","BIC","aBIC","ICL","CLC")
 # #list_df_samples <- getOutFiles()
@@ -119,6 +99,29 @@ return(all)
 # all <- list(do.call(rbind,list_store_IC_samples[[1]]), do.call(rbind,list_store_IC_samples[[2]]))
 # names(all) <- c("200","500")
 # print(all)
+
+
+### Sample Output ###
+#> all
+#$`200`
+#       LC2  LC3  LC4  LC5
+# AIC  10.0 59.4 25.4  5.2
+# CAIC 98.6  1.4  0.0  0.0
+# BIC  98.6  1.4  0.0  0.0
+# aBIC 14.2 64.6 18.6  2.6
+# ICL   7.8 61.6 21.8  8.8
+# CLC   0.0 10.0 21.2 68.8
+
+# $`500`
+#       LC2  LC3  LC4  LC5
+# AIC  10.0 59.4 25.4  5.2
+# CAIC 98.6  1.4  0.0  0.0
+# BIC  98.6  1.4  0.0  0.0
+# aBIC 14.2 64.6 18.6  2.6
+# ICL   7.8 61.6 21.8  8.8
+# CLC   0.0 10.0 21.2 68.8
+
+### End Sample Ouput ### 
 
 
 
