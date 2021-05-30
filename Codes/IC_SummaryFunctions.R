@@ -70,7 +70,7 @@ IC_summary_fctn <- function(df_sample,IC){
 return(mat) 
 }
 
-getOutFiles <- function(p,s,q,e,c){
+obtain_IC_prop<- function(p,s,q,e,c){
 	#p: population
 	#s: split
 	#q: quality 
